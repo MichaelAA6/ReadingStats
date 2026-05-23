@@ -42,7 +42,7 @@ def goalkeepers_graph():
     stats['CrdR'] = pd.to_numeric(stats['CrdR'], errors='coerce')
     keeper_stats = stats[['Player','Pos','MP', 'CrdY', 'CrdR']].copy()
     keeper_stats = keeper_stats[(keeper_stats['Pos'] == 'GK')]
-    chart = alt.Chart(keeper_stats).encode(
+    chart_apps = alt.Chart(keeper_stats).encode(
         alt.Theta('MP:Q').stack(True),
         alt.Color('Player:N'),
         tooltip=[
@@ -51,10 +51,40 @@ def goalkeepers_graph():
         ]
 
     )
-    c1 = chart.mark_arc(innerRadius=20, stroke="#fff")
-    c2 = chart.mark_text(radius=180,size=20).encode(
+    c1 = chart_apps.mark_arc(innerRadius=20, stroke="#fff")
+    c2 = chart_apps.mark_text(radius=180,size=20).encode(
         text=alt.Text("MP:Q")
     )
-    final_chart = c1+c2
-    chart_json = final_chart.to_json()
-    return chart_json
+    final_chart_apps = c1+c2
+    chart_apps_json = final_chart_apps.to_json()
+
+    cards_stats = keeper_stats[['Player','CrdY', 'CrdR']].copy()
+    cards_stats = cards_stats.melt(
+        id_vars='Player',
+        value_vars=['CrdY', 'CrdR'],
+        var_name = 'CardType',
+        value_name = 'Cards'
+    )
+    cards_stats['CardType'] = cards_stats['CardType'].replace({
+        'CrdY': 'Yellow Cards',
+        'CrdR': 'Red Cards'
+    })
+    chart_cards = alt.Chart(cards_stats).mark_bar().encode(
+        x=alt.X('Player:N'),
+        y=alt.Y('sum(Cards):Q',title='Cards'),
+        color=alt.Color(
+        'CardType:N',
+        scale=alt.Scale(
+                domain=['Yellow Cards', 'Red Cards'],
+                range=['yellow', 'red']
+            ),
+            title='Card Type'
+        ),
+        tooltip=[
+            alt.Tooltip('Player:N', title='Player'),
+            alt.Tooltip('CardType:N', title='Card Type'),
+            alt.Tooltip('Cards:Q', title='Cards')
+        ]
+    )
+    chart_cards_json = chart_cards.to_json()
+    return chart_apps_json, chart_cards_json
