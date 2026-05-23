@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Hello World</title>
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
 <h1>
-    Reading HomePage
+    Reading Data Page
 </h1>
+{# Creates the Chart to display the information #}
 <div id="altair-chart"></div>
 
     <script type="text/javascript">
@@ -18,6 +12,4 @@
 
       vegaEmbed('#altair-chart', spec);
     </script>
-
-</body>
-</html>
+{% endblock %}

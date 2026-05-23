@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {# Used to store needed scripts and Title which can be changed on individual pages #}
+    <title>{% block title %}Reading FC Data{% endblock %}</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+{# Creates Navigation Bar to move between pages#}
+<nav class="navbar bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="/">Home</a>
+        <a class="navbar-brand" href="/goalkeepers">Goalkeepers</a>
+        <a class="navbar-brand" href="/defenders">Defenders</a>
+        <a class="navbar-brand" href="/midfielders">Midfielders</a>
+        <a class="navbar-brand" href="/forwards">Forwards</a>
+    </div>
+</nav>
+<hr>
+{# Used to allow for more content to be added in pages #}
+<div class="container mt-4">
+    {% block content %}{% endblock %}
+</div>
+{% block scripts %}{% endblock %}
+</body>
+</html>
