@@ -2,4 +2,11 @@
 {% block title %}Goalkeepers{% endblock %}
 {% block content %}
 <h1>Goalkeepers</h1>
+<div id="altair-chart"></div>
+
+    <script type="text/javascript">
+      const spec = {{ graph | safe }}
+
+      vegaEmbed('#altair-chart', spec);
+    </script>
 {% endblock %}
