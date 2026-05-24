@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 
-from app.graphs import home_graph, goalkeepers_graph, defenders_graph
+from app.graphs import home_graph, goalkeepers_graph, defenders_graph, midfielders_graph
 
 main = Blueprint('main', __name__)
 
@@ -24,7 +24,8 @@ def defenders():
 
 @main.route('/midfielders')
 def midfielders():
-    return render_template('midfielders.html')
+    apps_graph, ga_graph,card_graph = midfielders_graph()
+    return render_template('midfielders.html',apps_graph=apps_graph,ga_graph=ga_graph,card_graph=card_graph)
 
 @main.route('/forwards')
 def forwards():
