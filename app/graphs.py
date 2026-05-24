@@ -102,7 +102,11 @@ def defenders_graph():
     defender_stats = defender_stats[(defender_stats['Pos'] == 'DF')]
     chart_apps = alt.Chart(defender_stats).encode(
         alt.Theta('MP:Q').stack(True),
-        alt.Color('Player:N'),
+        alt.Color('Player:N',
+                  legend=alt.Legend(
+                    offset=40
+                    )
+                  ),
         tooltip=[
             alt.Tooltip('Player:N', title='Players Name'),
             alt.Tooltip('MP:Q', title='Matches Played')
