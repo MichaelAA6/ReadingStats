@@ -298,7 +298,10 @@ def forwards_graph():
     stats['Gls'] = pd.to_numeric(stats['Gls'], errors='coerce')
     stats['Ast'] = pd.to_numeric(stats['Ast'], errors='coerce')
     stats['G+A_p90'] = pd.to_numeric(stats['G+A_p90'], errors='coerce')
-    forwards_stats = stats[['Player', 'Pos', 'MP', 'Gls', 'Ast', 'G+A_p90', 'CrdY', 'CrdR']].copy()
+    stats['Sh'] = pd.to_numeric(stats['Sh'], errors='coerce')
+    stats['SoT'] = pd.to_numeric(stats['SoT'], errors='coerce')
+    stats['SoT%'] = pd.to_numeric(stats['SoT%'], errors='coerce')
+    forwards_stats = stats[['Player','Pos','MP', 'Gls','Ast','G+A_p90','Sh','SoT','SoT%','CrdY','CrdR']].copy()
     forwards_stats = forwards_stats[(forwards_stats['Pos'] == 'FW') & (forwards_stats['MP'] > 0)]
     chart_apps = alt.Chart(forwards_stats).encode(
         alt.Theta('MP:Q').stack(True),
@@ -329,9 +332,9 @@ def forwards_graph():
     base_ga = alt.Chart(ga_stats).encode(
         alt.X('Player:N'),
     )
-    max_bar = float(ga_stats.groupby(['Player', 'Contribution Type'])['Count'].sum().max()) + 1
+    max_bar_ga = float(ga_stats.groupby(['Player', 'Contribution Type'])['Count'].sum().max()) + 1
     bar_ga = base_ga.mark_bar().encode(
-        y=alt.Y('sum(Count):Q', scale=alt.Scale(domain=[0, max_bar]),
+        y=alt.Y('sum(Count):Q', scale=alt.Scale(domain=[0, max_bar_ga]),
                 title='Goals/Assists'),
         xOffset='Contribution Type:N',
         color=alt.Color('Contribution Type:N',
@@ -344,12 +347,12 @@ def forwards_graph():
             alt.Tooltip('Contribution Type:N', title='Contribution Type'),
             alt.Tooltip('Count:Q', title='Value')
         ])
-    max_line = float(ga_stats['G+A_p90'].max()) + 0.01
+    max_line_ga = float(ga_stats['G+A_p90'].max()) + 0.01
     line_ga = base_ga.mark_line(
         color="red",
         point=alt.OverlayMarkDef(color="black", opacity=0.2),
     ).encode(
-        y=alt.Y('G+A_p90:Q', scale=alt.Scale(domain=[0, max_line]),
+        y=alt.Y('G+A_p90:Q', scale=alt.Scale(domain=[0, max_line_ga]),
                 title="Goals + Assists Per 90"),
         tooltip=[
             alt.Tooltip('Player:N', title='Players Name'),
@@ -387,4 +390,44 @@ def forwards_graph():
         ]
     )
     chart_cards_json = chart_cards.to_json()
-    return chart_apps_json, chart_ga_json, chart_cards_json
+    shots_stats = forwards_stats[['Player', 'Sh', 'SoT', 'SoT%']].copy()
+    shots_stats = shots_stats.melt(
+        id_vars=['Player', 'SoT%'],
+        value_vars=['Sh', 'SoT'],
+        var_name='Shot Type',
+        value_name='Shots'
+    )
+    base_shots = alt.Chart(shots_stats).encode(
+        alt.X('Player:N'),
+    )
+    max_bar_shots = float(shots_stats.groupby(['Player', 'Shot Type'])['Shots'].sum().max()) + 5
+    bar_shots = base_shots.mark_bar().encode(
+        y=alt.Y('sum(Shots):Q', scale=alt.Scale(domain=[0, max_bar_shots]),
+                title='Shots/Shots On Target'),
+        xOffset='Shot Type:N',
+        color=alt.Color('Shot Type:N',
+                        scale=alt.Scale(
+                            domain=['Sh', 'SoT','SoT%'],
+                            range=['black', 'green','red']
+                        )),
+        tooltip=[
+            alt.Tooltip('Player:N', title='Players Name'),
+            alt.Tooltip('Shot Type:N', title='Contribution Type'),
+            alt.Tooltip('Shots:Q', title='Value')
+        ])
+    max_line_shots = float(shots_stats['SoT%'].max()) + 1
+    line_shots = base_shots.mark_line(
+        color="red",
+        point=alt.OverlayMarkDef(color="black", opacity=0.2),
+    ).encode(
+        y=alt.Y('SoT%:Q', scale=alt.Scale(domain=[0, max_line_shots]),
+                title="Shots on Target Percentage"),
+        tooltip=[
+            alt.Tooltip('Player:N', title='Players Name'),
+            alt.Tooltip('SoT%:Q', title='Percentage')
+        ]
+    )
+
+    chart_shots = alt.layer(bar_shots, line_shots).resolve_scale(y="independent")
+    chart_shots_json = chart_shots.to_json()
+    return chart_apps_json, chart_ga_json, chart_cards_json,chart_shots_json
