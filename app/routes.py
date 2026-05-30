@@ -14,8 +14,8 @@ def home():
 #used to return goalkeepers route and return the html page
 @main.route('/goalkeepers')
 def goalkeepers():
-    apps_graph,card_graph = goalkeepers_graph()
-    return render_template('goalkeepers.html',apps_graph=apps_graph,card_graph=card_graph)
+    apps_graph,card_graph,conceded_graph = goalkeepers_graph()
+    return render_template('goalkeepers.html',apps_graph=apps_graph,card_graph=card_graph,conceded_graph=conceded_graph)
 
 @main.route('/defenders')
 def defenders():

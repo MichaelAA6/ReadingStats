@@ -38,9 +38,11 @@ def goalkeepers_graph():
     csv_path = os.path.join(current_app.root_path, 'goalkeeper_data.csv')
     stats = pd.read_csv(csv_path)
     stats['MP'] = pd.to_numeric(stats['MP'], errors='coerce')
+    stats['GA'] = pd.to_numeric(stats['GA'], errors='coerce')
+    stats['GA90'] = pd.to_numeric(stats['GA90'], errors='coerce')
     stats['CrdY'] = pd.to_numeric(stats['CrdY'], errors='coerce')
     stats['CrdR'] = pd.to_numeric(stats['CrdR'], errors='coerce')
-    keeper_stats = stats[['Player','Pos','MP', 'CrdY', 'CrdR']].copy()
+    keeper_stats = stats[['Player','Pos','MP', 'CrdY', 'CrdR','GA','GA90']].copy()
     keeper_stats = keeper_stats[(keeper_stats['Pos'] == 'GK')]
     chart_apps = alt.Chart(keeper_stats).encode(
         alt.Theta('MP:Q').stack(True),
@@ -87,7 +89,50 @@ def goalkeepers_graph():
         ]
     )
     chart_cards_json = chart_cards.to_json()
-    return chart_apps_json, chart_cards_json
+    gc_stats = keeper_stats[['Player','GA','GA90']].copy()
+    gc_stats = gc_stats.melt(
+        id_vars=['Player','GA90'],
+        value_vars='GA',
+        var_name = 'Conceded Type',
+        value_name = 'Conceded'
+    )
+    gc_stats['Conceded Type'] = gc_stats['Conceded Type'].replace({
+        'GA': 'Goals Conceded',
+        'GA90': 'Goals Conceded Per 90'
+    })
+    base_gc = alt.Chart(gc_stats).encode(
+        x=alt.X('Player:N'),
+    )
+    max_bar = float(gc_stats.groupby(['Player', 'Contribution Type'])['Conceded'].sum().max()) + 20
+    bar_gc = base_gc.mark_bar().encode(
+        y = alt.Y('sum(Conceded):Q',
+                  scale=alt.Scale(domain=[0, max_bar]),
+                  title='Goals Conceded'),
+        xOffset='Conceded Type:N',
+        color=alt.Color('Conceded Type:N',
+            scale=alt.Scale(
+                domain=['Goals Conceded','Goals Conceded Per 90'],
+                range=['green', 'red']
+        )),
+        tooltip=[
+            alt.Tooltip('Player:N', title='Player'),
+            alt.Tooltip('Conceded:Q', title='Conceded')
+        ]
+    )
+    max_line = float(gc_stats['GA90'].max()) + 0.1
+    line_gc = base_gc.mark_line(color="red",
+                point=alt.OverlayMarkDef(color="black",opacity=0.2)).encode(
+        y = alt.Y('GA90:Q',
+                  scale=alt.Scale(domain=[0, max_line]),
+                  title='Goals Conceded Per 90'),
+        tooltip=[
+            alt.Tooltip('Player:N', title='Player'),
+            alt.Tooltip('Conceded:Q', title='Conceded Per 90')
+        ]
+    )
+    chart_gc = alt.layer(bar_gc, line_gc).resolve_scale(y="independent")
+    chart_gc_json = chart_gc.to_json()
+    return chart_apps_json, chart_cards_json,chart_gc_json
 
 def defenders_graph():
     csv_path = os.path.join(current_app.root_path, 'player_data.csv')
