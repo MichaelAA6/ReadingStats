@@ -421,7 +421,7 @@ def forwards_graph():
         point=alt.OverlayMarkDef(color="black", opacity=0.2),
     ).encode(
         y=alt.Y('SoT%:Q', scale=alt.Scale(domain=[0, max_line_shots]),
-                title="Shots on Target Percentage"),
+                title="Shots on Target Percentage %"),
         tooltip=[
             alt.Tooltip('Player:N', title='Players Name'),
             alt.Tooltip('SoT%:Q', title='Percentage')
