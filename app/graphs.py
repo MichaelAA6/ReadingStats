@@ -35,7 +35,7 @@ def home_graph():
     return chart_json
 
 def goalkeepers_graph():
-    csv_path = os.path.join(current_app.root_path, 'player_data.csv')
+    csv_path = os.path.join(current_app.root_path, 'goalkeeper_data.csv')
     stats = pd.read_csv(csv_path)
     stats['MP'] = pd.to_numeric(stats['MP'], errors='coerce')
     stats['CrdY'] = pd.to_numeric(stats['CrdY'], errors='coerce')
