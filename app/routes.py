@@ -1,6 +1,9 @@
 from flask import Blueprint, render_template
-
-from app.graphs import home_graph, goalkeepers_graph, defenders_graph, midfielders_graph, forwards_graph
+from app.graphs.home_graph import home_graph
+from app.graphs.goalkeeper_graph import goalkeepers_graph
+from app.graphs.defender_graph import defenders_graph
+from app.graphs.midfielder_graph import midfielders_graph
+from app.graphs.forwards_graph import forwards_graph
 
 main = Blueprint('main', __name__)
 
