@@ -40,9 +40,12 @@ def goalkeepers_graph():
     stats['MP'] = pd.to_numeric(stats['MP'], errors='coerce')
     stats['GA'] = pd.to_numeric(stats['GA'], errors='coerce')
     stats['GA90'] = pd.to_numeric(stats['GA90'], errors='coerce')
+    stats['SoTA'] = pd.to_numeric(stats['SoTA'], errors='coerce')
+    stats['Saves'] = pd.to_numeric(stats['Saves'], errors='coerce')
+    stats['Save%'] = pd.to_numeric(stats['Save%'], errors='coerce')
     stats['CrdY'] = pd.to_numeric(stats['CrdY'], errors='coerce')
     stats['CrdR'] = pd.to_numeric(stats['CrdR'], errors='coerce')
-    keeper_stats = stats[['Player','Pos','MP', 'CrdY', 'CrdR','GA','GA90']].copy()
+    keeper_stats = stats[['Player','Pos','MP', 'CrdY', 'CrdR','GA','GA90','SoTA','Saves','Save%']].copy()
     keeper_stats = keeper_stats[(keeper_stats['Pos'] == 'GK')]
     chart_apps = alt.Chart(keeper_stats).encode(
         alt.Theta('MP:Q').stack(True),
@@ -132,7 +135,50 @@ def goalkeepers_graph():
     )
     chart_gc = alt.layer(bar_gc, line_gc).resolve_scale(y="independent")
     chart_gc_json = chart_gc.to_json()
-    return chart_apps_json, chart_cards_json,chart_gc_json
+    ks_stats = keeper_stats[['Player','SoTA','Saves','Save%']].copy()
+    ks_stats = ks_stats.melt(
+        id_vars=['Player','Save%'],
+        value_vars=['SoTA','Saves'],
+        var_name = 'Saves Type',
+        value_name = 'Saved'
+    )
+    ks_stats['Saves Type'] = ks_stats['Saves Type'].replace({
+        'SoTA': 'Shots Faced',
+        'Saves': 'Saves',
+    })
+    base_ks = alt.Chart(ks_stats).encode(
+        x=alt.X('Player:N'),
+    )
+    max_bar = float(ks_stats.groupby(['Player', 'Saves Type'])['Saved'].sum().max()) + 20
+    bar_ks = base_ks.mark_bar().encode(
+        y = alt.Y('sum(Saved):Q',
+                  scale=alt.Scale(domain=[0, max_bar]),
+                  title='Shots Faced/Saved'),
+        xOffset='Saves Type:N',
+        color=alt.Color('Saves Type:N',
+                        scale=alt.Scale(
+                            domain=['Shots Faced','Saves','Saves Percentage'],
+                            range=['red','green','blue']
+                        )),
+        tooltip=[
+            alt.Tooltip('Player:N', title='Player'),
+            alt.Tooltip('Saves Type:N', title='Saves Type'),
+            alt.Tooltip('Saved:Q',title='Value')
+        ]
+    )
+    max_line = float(ks_stats['Save%'].max()) + 20
+    line_ks = base_ks.mark_line(color="blue",
+        point=alt.OverlayMarkDef(color="black",opacity=0.2)).encode(
+        y = alt.Y('Save%:Q',scale=alt.Scale(domain=[0, max_line]),
+                  title='Saves Percentage'),
+        tooltip=[
+            alt.Tooltip('Player:N', title='Player'),
+            alt.Tooltip('Save%:N', title='Save Percentage'),
+        ]
+    )
+    chart_ks = alt.layer(bar_ks, line_ks).resolve_scale(y="independent")
+    chart_ks_json = chart_ks.to_json()
+    return chart_apps_json, chart_cards_json,chart_gc_json,chart_ks_json
 
 def defenders_graph():
     csv_path = os.path.join(current_app.root_path, 'player_data.csv')
