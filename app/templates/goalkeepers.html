@@ -13,6 +13,9 @@
 <hr/>
 <h2>Saves</h2>
 <div id="save-chart"></div>
+<hr/>
+<h2>Clean Sheets</h2>
+<div id="clean-chart"></div>
     <script type="text/javascript">
       const appsSpec = {{ apps_graph | safe }}
       vegaEmbed('#apps-chart', appsSpec);
@@ -22,5 +25,7 @@
       vegaEmbed('#conceded-chart',conSpec)
       const saveSpec = {{save_graph | safe}}
       vegaEmbed('#save-chart',saveSpec)
+      const cleanSpec = {{clean_graph | safe}}
+      vegaEmbed('#clean-chart',cleanSpec)
     </script>
 {% endblock %}
