@@ -27,8 +27,8 @@ def defenders():
 
 @main.route('/midfielders')
 def midfielders():
-    apps_graph, ga_graph,card_graph = midfielders_graph()
-    return render_template('midfielders.html',apps_graph=apps_graph,ga_graph=ga_graph,card_graph=card_graph)
+    apps_graph, ga_graph,card_graph,cross_graph = midfielders_graph()
+    return render_template('midfielders.html',apps_graph=apps_graph,ga_graph=ga_graph,card_graph=card_graph,cross_graph=cross_graph)
 
 @main.route('/forwards')
 def forwards():

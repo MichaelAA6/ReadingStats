@@ -14,7 +14,8 @@ def midfielders_graph():
     stats['Gls'] = pd.to_numeric(stats['Gls'], errors='coerce')
     stats['Ast'] = pd.to_numeric(stats['Ast'], errors='coerce')
     stats['G+A_p90'] = pd.to_numeric(stats['G+A_p90'], errors='coerce')
-    midfielders_stats = stats[['Player', 'Pos', 'MP', 'Gls', 'Ast', 'G+A_p90', 'CrdY', 'CrdR']].copy()
+    stats['Crs'] = pd.to_numeric(stats['Crs'], errors='coerce')
+    midfielders_stats = stats[['Player', 'Pos', 'MP', 'Gls', 'Ast', 'G+A_p90', 'CrdY', 'CrdR','Crs']].copy()
     midfielders_stats = midfielders_stats[(midfielders_stats['Pos'] == 'MF') & (midfielders_stats['MP'] > 0)]
     chart_apps = alt.Chart(midfielders_stats).encode(
         alt.Theta('MP:Q').stack(True),
@@ -103,4 +104,23 @@ def midfielders_graph():
         ]
     )
     chart_cards_json = chart_cards.to_json()
-    return chart_apps_json, chart_ga_json, chart_cards_json
+    cross_stats = midfielders_stats[['Player','Crs']].copy()
+    avg_cross = float(cross_stats['Crs'].mean())
+    cross_stats['AvgCrs'] = avg_cross
+    chart_cross = alt.Chart(cross_stats).mark_bar().encode(
+        x=alt.X('Player:N'),
+        y=alt.Y('Crs:Q', title='Crosses'),
+        tooltip=[
+            alt.Tooltip('Player:N', title='Player'),
+            alt.Tooltip('Crs:Q', title='Crosses')
+        ]
+    )
+    avg_chart = alt.Chart(cross_stats).mark_rule().encode(
+        y='AvgCrs:Q',
+        tooltip=[
+            alt.Tooltip('AvgCrs:N', title='Average Crosses'),
+        ]
+    )
+    chart_cross = chart_cross + avg_chart
+    chart_cross_json = chart_cross.to_json()
+    return chart_apps_json, chart_ga_json, chart_cards_json,chart_cross_json

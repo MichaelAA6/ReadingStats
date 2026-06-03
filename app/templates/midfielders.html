@@ -10,7 +10,9 @@
 <hr/>
 <h2> Discipline</h2>
 <div id="card-chart"></div>
-
+<hr/>
+<h2>Crossing</h2>
+<div id="cross-chart"></div>
 <script type="text/javascript">
       const appsSpec = {{ apps_graph | safe }}
       vegaEmbed('#apps-chart', appsSpec);
@@ -18,6 +20,8 @@
       vegaEmbed('#ga-chart', gaSpec);
       const cardSpec = {{card_graph | safe}}
       vegaEmbed('#card-chart',cardSpec)
+      const crossSpec = {{cross_graph | safe}}
+      vegaEmbed('#cross-chart',crossSpec)
     </script>
 
 {% endblock %}
