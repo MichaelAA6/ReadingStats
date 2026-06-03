@@ -15,7 +15,10 @@ def defenders_graph():
     stats['Gls'] = pd.to_numeric(stats['Gls'], errors='coerce')
     stats['Ast'] = pd.to_numeric(stats['Ast'], errors='coerce')
     stats['G+A_p90'] = pd.to_numeric(stats['G+A_p90'], errors='coerce')
-    defender_stats = stats[['Player','Pos','MP', 'Gls','Ast','G+A_p90','CrdY','CrdR']].copy()
+    stats['Fls'] = pd.to_numeric(stats['Fls'], errors='coerce')
+    stats['Int'] = pd.to_numeric(stats['Int'], errors='coerce')
+    stats['TklW'] = pd.to_numeric(stats['TklW'], errors='coerce')
+    defender_stats = stats[['Player','Pos','MP', 'Gls','Ast','G+A_p90','CrdY','CrdR','Fls','Int','TklW']].copy()
     defender_stats = defender_stats[(defender_stats['Pos'] == 'DF') & (defender_stats['MP'] > 0)]
     chart_apps = alt.Chart(defender_stats).encode(
         alt.Theta('MP:Q').stack(True),
@@ -104,4 +107,78 @@ def defenders_graph():
         ]
     )
     chart_cards_json = chart_cards.to_json()
-    return chart_apps_json,chart_ga_json,chart_cards_json
+    defence_stats = defender_stats[['Player','Fls','Int','TklW']].copy()
+    defence_stats['Fouls_Size'] = defence_stats['Fls']
+    area_data = pd.DataFrame({
+        "HlfTck":[(float(defender_stats['TklW'].max()))/2],
+        "FulTck":[(float(defender_stats['TklW'].max()))+1],
+        "HlfInt":[(float(defender_stats['Int'].max()))/2],
+        "FulInt":[(float(defender_stats['Int'].max()))+3],
+        "Zerox":[0],
+        "Zeroy":[0],
+        "LILT":"Low Interception, Low Tackles",
+        "HILT":"High Interception, Low Tackles",
+        "LIHT":"Low Interception, High Tackles",
+        "HIHT":"High Interception, High Tackles",
+    })
+    LILT_area = alt.Chart(area_data).mark_rect(opacity=0.1).encode(
+        x='Zerox',
+        x2='HlfTck',
+        y='Zeroy',
+        y2='HlfInt',
+        color=alt.ColorValue("#FF0000"),
+        tooltip=[
+            alt.Tooltip('LILT:N', title='Type'),
+        ]
+    )
+    HILT_area = alt.Chart(area_data).mark_rect(opacity=0.1).encode(
+        x='Zerox',
+        x2='HlfTck',
+        y='HlfInt',
+        y2='FulInt',
+        color=alt.ColorValue("#ff6f00"),
+        tooltip=[
+            alt.Tooltip('HILT:N', title='Type'),
+        ]
+
+    )
+    LIHT_area = alt.Chart(area_data).mark_rect(opacity=0.1).encode(
+        x='HlfTck',
+        x2='FulTck',
+        y='Zeroy',
+        y2='HlfInt',
+        color=alt.ColorValue("#ff6f00"),
+        tooltip=[
+            alt.Tooltip('LIHT:N', title='Type'),
+        ]
+    )
+    HIHT_area = alt.Chart(area_data).mark_rect(opacity=0.1).encode(
+        x='HlfTck',
+        x2='FulTck',
+        y='HlfInt',
+        y2='FulInt',
+        color=alt.ColorValue("#10ba0d"),
+        tooltip=[
+            alt.Tooltip('HIHT:N', title='Type'),
+        ]
+    )
+    defence_chart = alt.Chart(defence_stats).mark_point().encode(
+        x=alt.X('TklW:Q',title="Tackles Won"),
+        y=alt.Y('Int:Q',title="Interceptions Won"),
+        color=alt.Color(
+            'Fls:Q',
+            title='Fouls Committed',
+            scale=alt.Scale(scheme='goldred'),
+            legend=alt.Legend(type='gradient')
+        ),
+        size=alt.Size('Fouls_Size:Q', scale=alt.Scale(range=[100, 1000]),legend=None),
+        tooltip=[
+            alt.Tooltip('Player:N', title='Player'),
+            alt.Tooltip('TklW:Q', title='Tackles Won'),
+            alt.Tooltip('Int:Q', title='Interceptions Won'),
+            alt.Tooltip('Fls:Q',title='Fouls Committed')
+        ]
+    )
+    defence_chart = LILT_area + HILT_area + LIHT_area + HIHT_area + defence_chart
+    defence_chart_json = defence_chart.to_json()
+    return chart_apps_json,chart_ga_json,chart_cards_json,defence_chart_json
