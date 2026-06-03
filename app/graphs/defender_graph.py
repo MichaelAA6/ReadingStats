@@ -15,7 +15,10 @@ def defenders_graph():
     stats['Gls'] = pd.to_numeric(stats['Gls'], errors='coerce')
     stats['Ast'] = pd.to_numeric(stats['Ast'], errors='coerce')
     stats['G+A_p90'] = pd.to_numeric(stats['G+A_p90'], errors='coerce')
-    defender_stats = stats[['Player','Pos','MP', 'Gls','Ast','G+A_p90','CrdY','CrdR']].copy()
+    stats['Fls'] = pd.to_numeric(stats['Fls'], errors='coerce')
+    stats['Int'] = pd.to_numeric(stats['Int'], errors='coerce')
+    stats['TklW'] = pd.to_numeric(stats['TklW'], errors='coerce')
+    defender_stats = stats[['Player','Pos','MP', 'Gls','Ast','G+A_p90','CrdY','CrdR','Fls','Int','TklW']].copy()
     defender_stats = defender_stats[(defender_stats['Pos'] == 'DF') & (defender_stats['MP'] > 0)]
     chart_apps = alt.Chart(defender_stats).encode(
         alt.Theta('MP:Q').stack(True),
@@ -104,4 +107,24 @@ def defenders_graph():
         ]
     )
     chart_cards_json = chart_cards.to_json()
-    return chart_apps_json,chart_ga_json,chart_cards_json
+    defence_stats = defender_stats[['Player','Fls','Int','TklW']].copy()
+    defence_stats['Fouls_Size'] = defence_stats['Fls']
+    defence_chart = alt.Chart(defence_stats).mark_point().encode(
+        x=alt.X('TklW:Q',title="Tackles Won"),
+        y=alt.Y('Int:Q',title="Interceptions Won"),
+        color=alt.Color(
+            'Fls:Q',
+            title='Fouls Committed',
+            scale=alt.Scale(scheme='goldred'),
+            legend=alt.Legend(type='gradient')
+        ),
+        size=alt.Size('Fouls_Size:Q', scale=alt.Scale(range=[100, 1000]),legend=None),
+        tooltip=[
+            alt.Tooltip('Player:N', title='Player'),
+            alt.Tooltip('TklW:Q', title='Tackles Won'),
+            alt.Tooltip('Int:Q', title='Interceptions Won'),
+            alt.Tooltip('Fls:Q',title='Fouls Committed')
+        ]
+    )
+    defence_chart_json = defence_chart.to_json()
+    return chart_apps_json,chart_ga_json,chart_cards_json,defence_chart_json
