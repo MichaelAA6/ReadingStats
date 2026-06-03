@@ -109,6 +109,59 @@ def defenders_graph():
     chart_cards_json = chart_cards.to_json()
     defence_stats = defender_stats[['Player','Fls','Int','TklW']].copy()
     defence_stats['Fouls_Size'] = defence_stats['Fls']
+    area_data = pd.DataFrame({
+        "HlfTck":[(float(defender_stats['TklW'].max()))/2],
+        "FulTck":[(float(defender_stats['TklW'].max()))+1],
+        "HlfInt":[(float(defender_stats['Int'].max()))/2],
+        "FulInt":[(float(defender_stats['Int'].max()))+3],
+        "Zerox":[0],
+        "Zeroy":[0],
+        "LILT":"Low Interception, Low Tackles",
+        "HILT":"High Interception, Low Tackles",
+        "LIHT":"Low Interception, High Tackles",
+        "HIHT":"High Interception, High Tackles",
+    })
+    LILT_area = alt.Chart(area_data).mark_rect(opacity=0.1).encode(
+        x='Zerox',
+        x2='HlfTck',
+        y='Zeroy',
+        y2='HlfInt',
+        color=alt.ColorValue("#FF0000"),
+        tooltip=[
+            alt.Tooltip('LILT:N', title='Type'),
+        ]
+    )
+    HILT_area = alt.Chart(area_data).mark_rect(opacity=0.1).encode(
+        x='Zerox',
+        x2='HlfTck',
+        y='HlfInt',
+        y2='FulInt',
+        color=alt.ColorValue("#ff6f00"),
+        tooltip=[
+            alt.Tooltip('HILT:N', title='Type'),
+        ]
+
+    )
+    LIHT_area = alt.Chart(area_data).mark_rect(opacity=0.1).encode(
+        x='HlfTck',
+        x2='FulTck',
+        y='Zeroy',
+        y2='HlfInt',
+        color=alt.ColorValue("#ff6f00"),
+        tooltip=[
+            alt.Tooltip('LIHT:N', title='Type'),
+        ]
+    )
+    HIHT_area = alt.Chart(area_data).mark_rect(opacity=0.1).encode(
+        x='HlfTck',
+        x2='FulTck',
+        y='HlfInt',
+        y2='FulInt',
+        color=alt.ColorValue("#10ba0d"),
+        tooltip=[
+            alt.Tooltip('HIHT:N', title='Type'),
+        ]
+    )
     defence_chart = alt.Chart(defence_stats).mark_point().encode(
         x=alt.X('TklW:Q',title="Tackles Won"),
         y=alt.Y('Int:Q',title="Interceptions Won"),
@@ -126,5 +179,6 @@ def defenders_graph():
             alt.Tooltip('Fls:Q',title='Fouls Committed')
         ]
     )
+    defence_chart = LILT_area + HILT_area + LIHT_area + HIHT_area + defence_chart
     defence_chart_json = defence_chart.to_json()
     return chart_apps_json,chart_ga_json,chart_cards_json,defence_chart_json
