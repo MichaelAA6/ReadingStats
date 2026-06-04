@@ -1,9 +1,12 @@
+#helps to build the docker file with more detail
 services:
   web:
     build: .
-    container_name: reading_fc_Stats
+    #sets the container name when run
+    container_name: reading_fc_stats
     ports:
       - "5000:5000"
+    #used to update the application as it updates
     volumes:
       - .:/app
     environment:
