@@ -17,7 +17,8 @@ def forwards_graph():
     stats['Sh'] = pd.to_numeric(stats['Sh'], errors='coerce')
     stats['SoT'] = pd.to_numeric(stats['SoT'], errors='coerce')
     stats['SoT%'] = pd.to_numeric(stats['SoT%'], errors='coerce')
-    forwards_stats = stats[['Player','Pos','MP', 'Gls','Ast','G+A_p90','Sh','SoT','SoT%','CrdY','CrdR']].copy()
+    stats['Off'] = pd.to_numeric(stats['Off'], errors='coerce')
+    forwards_stats = stats[['Player','Pos','MP', 'Gls','Ast','G+A_p90','Sh','SoT','SoT%','CrdY','CrdR','Off']].copy()
     forwards_stats = forwards_stats[(forwards_stats['Pos'] == 'FW') & (forwards_stats['MP'] > 0)]
     chart_apps = alt.Chart(forwards_stats).encode(
         alt.Theta('MP:Q').stack(True),
@@ -146,4 +147,39 @@ def forwards_graph():
 
     chart_shots = alt.layer(bar_shots, line_shots).resolve_scale(y="independent")
     chart_shots_json = chart_shots.to_json()
-    return chart_apps_json, chart_ga_json, chart_cards_json,chart_shots_json
+    off_stats = forwards_stats[['Player', 'Off']].copy()
+    avg_off = round(float(off_stats['Off'].mean()))
+    off_stats['AvgOff'] = avg_off
+    area_data = pd.DataFrame({
+        'AvgOff': [avg_off],
+        'HighestOffside':[float(off_stats['Off'].max())],
+        'Zero':[0]
+    })
+    below_avg = alt.Chart(area_data).mark_rect(opacity=0.1).encode(
+        y='Zero',
+        y2='AvgOff',
+        color=alt.ColorValue("#10ba0d")
+    )
+    above_avg = alt.Chart(area_data).mark_rect(opacity=0.1).encode(
+        y='AvgOff',
+        y2='HighestOffside',
+        color=alt.ColorValue("#FF0000")
+    )
+    chart_off = alt.Chart(off_stats).mark_bar().encode(
+        x=alt.X('Player:N'),
+        y=alt.Y('Off:Q', title='Offside'),
+        color=alt.Color('Player:N'),
+        tooltip=[
+            alt.Tooltip('Player:N', title='Player'),
+            alt.Tooltip('Off:Q', title='Offside')
+        ]
+    )
+    line_off = alt.Chart(off_stats).mark_rule(color='blue').encode(
+        y='AvgOff:Q',
+        tooltip=[
+            alt.Tooltip('AvgOff:N', title='Average Offside'),
+        ]
+    )
+    chart_off = below_avg + above_avg + chart_off + line_off
+    chart_off_json = chart_off.to_json()
+    return chart_apps_json, chart_ga_json, chart_cards_json,chart_shots_json,chart_off_json
