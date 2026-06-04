@@ -105,22 +105,38 @@ def midfielders_graph():
     )
     chart_cards_json = chart_cards.to_json()
     cross_stats = midfielders_stats[['Player','Crs']].copy()
-    avg_cross = float(cross_stats['Crs'].mean())
+    avg_cross = round(float(cross_stats['Crs'].mean()))
     cross_stats['AvgCrs'] = avg_cross
+    area_data = pd.DataFrame({
+        'AvgCross':[avg_cross],
+        'HighestCross':[float(cross_stats['Crs'].max()) +16],
+        'Zero': [0]
+    })
+    below_avg = alt.Chart(area_data).mark_rect(opacity=0.1).encode(
+        y='Zero',
+        y2='AvgCross',
+        color=alt.ColorValue("#FF0000")
+    )
+    above_avg = alt.Chart(area_data).mark_rect(opacity=0.1).encode(
+        y='AvgCross',
+        y2='HighestCross',
+        color=alt.ColorValue("#10ba0d")
+    )
     chart_cross = alt.Chart(cross_stats).mark_bar().encode(
         x=alt.X('Player:N'),
         y=alt.Y('Crs:Q', title='Crosses'),
+        color=alt.Color("Player:N"),
         tooltip=[
             alt.Tooltip('Player:N', title='Player'),
             alt.Tooltip('Crs:Q', title='Crosses')
         ]
     )
-    avg_chart = alt.Chart(cross_stats).mark_rule().encode(
+    avg_chart = alt.Chart(cross_stats).mark_rule(color="blue").encode(
         y='AvgCrs:Q',
         tooltip=[
             alt.Tooltip('AvgCrs:N', title='Average Crosses'),
         ]
     )
-    chart_cross = chart_cross + avg_chart
+    chart_cross = below_avg + above_avg + chart_cross + avg_chart
     chart_cross_json = chart_cross.to_json()
     return chart_apps_json, chart_ga_json, chart_cards_json,chart_cross_json
