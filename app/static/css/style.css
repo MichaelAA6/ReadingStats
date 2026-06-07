@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 body{
-    font-family: Verdana, sans-serif;
+    font-family: Inter, sans-serif;
     background-color: ghostwhite;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    color:#1e293b;
 }
 
 .navbar{
@@ -9,28 +14,41 @@ body{
     margin: 0px;
     padding: 0px;
     overflow: hidden;
-    background: #c6cfff;
-    font-family: Roboto, serif;
+    background: #002d62;
     font-size: 20px;
-    font-weight: lighter;
 }
 
 .navbar .container{
     display:flex;
     flex-direction: row;
+    align-items: stretch;
     width:100%;
 }
 .navbar a{
     flex:1;
-    display: block;
-    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #cfb381;
     text-align: center;
     padding: 15px 0;
     text-decoration: none;
+
+}
+
+.navbar-logo {
+    margin-left: auto;
+    display: flex;
+    padding-right: 20px;
+    align-items: center;
+}
+.navbar-logo img{
+    height: 100px;
+    width: auto;
 }
 
 .navbar a:hover{
-    background-color: cornsilk;
+    background-color: #3d96ff;
 }
 
 hr{
