@@ -1,0 +1,40 @@
+body{
+    font-family: Verdana, sans-serif;
+    background-color: ghostwhite;
+}
+
+.navbar{
+    width:100%;
+    border-radius: 25px;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    background: #c6cfff;
+    font-family: Roboto, serif;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.navbar .container{
+    display:flex;
+    flex-direction: row;
+    width:100%;
+}
+.navbar a{
+    flex:1;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 15px 0;
+    text-decoration: none;
+}
+
+.navbar a:hover{
+    background-color: cornsilk;
+}
+
+hr{
+    border: none;
+    height: 5px;
+    background-color: black;
+}
