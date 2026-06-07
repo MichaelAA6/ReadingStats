@@ -1,3 +1,8 @@
+"""
+    routes.py
+    used to create link between pages and also provides content to each page
+    :returns home,goalkeepers,defenders,midfielders,forwards
+"""
 from flask import Blueprint, render_template
 from app.graphs.home_graph import home_graph
 from app.graphs.goalkeeper_graph import goalkeepers_graph
@@ -17,20 +22,24 @@ def home():
 #used to return goalkeepers route and return the html page
 @main.route('/goalkeepers')
 def goalkeepers():
+    #creates and returns the goalkeepers graph
     apps_graph,card_graph,conceded_graph,save_graph,clean_graph = goalkeepers_graph()
     return render_template('goalkeepers.html',apps_graph=apps_graph,card_graph=card_graph,conceded_graph=conceded_graph,save_graph=save_graph,clean_graph=clean_graph)
 
 @main.route('/defenders')
 def defenders():
+    #creates and returns defenders graph
     apps_graph, ga_graph,card_graph,defence_graph = defenders_graph()
     return render_template('defenders.html',apps_graph=apps_graph,ga_graph=ga_graph,card_graph=card_graph,defence_graph=defence_graph)
 
 @main.route('/midfielders')
 def midfielders():
+    #creates and returns midfielders graph
     apps_graph, ga_graph,card_graph,cross_graph = midfielders_graph()
     return render_template('midfielders.html',apps_graph=apps_graph,ga_graph=ga_graph,card_graph=card_graph,cross_graph=cross_graph)
 
 @main.route('/forwards')
 def forwards():
+    #creates and returns forwards graph
     apps_graph, ga_graph,card_graph,shots_graph,offside_graph = forwards_graph()
     return render_template('forwards.html',apps_graph=apps_graph,ga_graph=ga_graph,card_graph=card_graph,shots_graph=shots_graph,offside_graph=offside_graph)
