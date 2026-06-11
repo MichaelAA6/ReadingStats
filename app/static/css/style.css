@@ -1,0 +1,70 @@
+/*Import Goggle Font*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+/*Defines CSS for entire page, setting font and alignment*/
+body{
+    font-family: Inter, sans-serif;
+    background-color: ghostwhite;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    color:#1e293b;
+}
+/*Used to modify the navbar as a whole*/
+.navbar{
+    /*Sets the width to be entire page*/
+    width:100%;
+    /*Creates rounded shape*/
+    border-radius: 25px;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    background: #002d62;
+    font-size: 20px;
+}
+/*Used to control the navbar container*/
+.navbar .container{
+    /*used to match when page changes size to fit whole screen*/
+    display:flex;
+    flex-direction: row;
+    align-items: stretch;
+    width:100%;
+}
+/*Used to control the text in navbar*/
+.navbar a{
+    /*Used to centre the text*/
+    flex:1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 15px 0;
+    text-decoration: none;
+    /*Sets text colour*/
+    color: #cfb381;
+}
+
+/*used to manage logo id*/
+.navbar-logo {
+    /*Moves logo always to the right*/
+    margin-left: auto;
+    display: flex;
+    padding-right: 20px;
+    align-items: center;
+}
+/*used to manage the actual image*/
+.navbar-logo img{
+    /*manages height and width*/
+    height: 100px;
+    width: auto;
+}
+/*Used to manage when pointer is over navbar option*/
+.navbar a:hover{
+    /*changes colour to indicate hover*/
+    background-color: #3d96ff;
+}
+/*used to manage the size of the breaks*/
+hr{
+    border: none;
+    height: 5px;
+    background-color: black;
+}

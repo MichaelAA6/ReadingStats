@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 {# Creates Navigation Bar to move between pages#}
@@ -17,6 +18,9 @@
         <a class="navbar-brand" href="/defenders">Defenders</a>
         <a class="navbar-brand" href="/midfielders">Midfielders</a>
         <a class="navbar-brand" href="/forwards">Forwards</a>
+        <div class="navbar-logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Reading FC Logo">"
+        </div>
     </div>
 </nav>
 <hr>
