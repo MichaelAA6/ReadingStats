@@ -23,23 +23,36 @@ def home():
 @main.route('/goalkeepers')
 def goalkeepers():
     #creates and returns the goalkeepers graph
-    apps_graph,card_graph,conceded_graph,save_graph,clean_graph = goalkeepers_graph()
+    apps_graph,card_graph,conceded_graph,save_graph,clean_graph = goalkeepers_graph('goalkeeper_data.csv')
     return render_template('goalkeepers.html',apps_graph=apps_graph,card_graph=card_graph,conceded_graph=conceded_graph,save_graph=save_graph,clean_graph=clean_graph)
-
+@main.route('/goalkeepers/2425season')
+def goalkeepers_2425season():
+    apps_graph, card_graph, conceded_graph, save_graph, clean_graph = goalkeepers_graph('goalkeeper_data2425.csv')
+    return render_template('goalkeepers.html', apps_graph=apps_graph, card_graph=card_graph,conceded_graph=conceded_graph, save_graph=save_graph, clean_graph=clean_graph)
 @main.route('/defenders')
 def defenders():
     #creates and returns defenders graph
-    apps_graph, ga_graph,card_graph,defence_graph = defenders_graph()
+    apps_graph, ga_graph,card_graph,defence_graph = defenders_graph('player_data.csv')
     return render_template('defenders.html',apps_graph=apps_graph,ga_graph=ga_graph,card_graph=card_graph,defence_graph=defence_graph)
-
+@main.route('/defenders/2425season')
+def defenders_2425season():
+    apps_graph, ga_graph, card_graph, defence_graph = defenders_graph('player_data2425.csv')
+    return render_template('defenders.html', apps_graph=apps_graph, ga_graph=ga_graph, card_graph=card_graph,defence_graph=defence_graph)
 @main.route('/midfielders')
 def midfielders():
     #creates and returns midfielders graph
-    apps_graph, ga_graph,card_graph,cross_graph = midfielders_graph()
+    apps_graph, ga_graph,card_graph,cross_graph = midfielders_graph('player_data.csv')
     return render_template('midfielders.html',apps_graph=apps_graph,ga_graph=ga_graph,card_graph=card_graph,cross_graph=cross_graph)
-
+@main.route('/midfielders/2425season')
+def midfielders_2425season():
+    apps_graph, ga_graph, card_graph, cross_graph = midfielders_graph('player_data2425.csv')
+    return render_template('midfielders.html', apps_graph=apps_graph, ga_graph=ga_graph, card_graph=card_graph,cross_graph=cross_graph)
 @main.route('/forwards')
 def forwards():
     #creates and returns forwards graph
-    apps_graph, ga_graph,card_graph,shots_graph,offside_graph = forwards_graph()
+    apps_graph, ga_graph,card_graph,shots_graph,offside_graph = forwards_graph('player_data.csv')
     return render_template('forwards.html',apps_graph=apps_graph,ga_graph=ga_graph,card_graph=card_graph,shots_graph=shots_graph,offside_graph=offside_graph)
+@main.route('/forwards/2425season')
+def forwards_2425season():
+    apps_graph, ga_graph, card_graph, shots_graph, offside_graph = forwards_graph('player_data2425.csv')
+    return render_template('forwards.html', apps_graph=apps_graph, ga_graph=ga_graph, card_graph=card_graph,shots_graph=shots_graph, offside_graph=offside_graph)
