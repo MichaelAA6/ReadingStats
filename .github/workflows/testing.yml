@@ -29,7 +29,10 @@ jobs:
       #wait for docker and flask to load
       - name: "Wait For Response"
         run: |
-          until curl -s http://localhost:5000 > /dev/null;
+          timeout 30s bash -c '
+          until curl -s http://localhost:5000/ > /dev/null; 
+          do sleep 2
+          done'
       #run tests
       - name: Run Pytest
         run: pytest
