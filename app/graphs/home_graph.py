@@ -10,9 +10,9 @@ import numpy as np
 import pandas as pd
 from flask import current_app
 
-def home_graph():
+def home_graph(csv_name):
     #retrieves the CSV file of player data
-    csv_path = os.path.join(current_app.root_path,'db', 'player_data.csv')
+    csv_path = os.path.join(current_app.root_path,'db', csv_name)
     #read the csv file and make sure the data retrieved is error free
     stats = pd.read_csv(csv_path)
     #specifically for minutes remove commas example 4,300 -> 4300

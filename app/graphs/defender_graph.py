@@ -11,9 +11,9 @@ import numpy as np
 import pandas as pd
 from flask import current_app
 
-def defenders_graph():
+def defenders_graph(csv_name):
     #find the players database and create a pd Frame
-    csv_path = os.path.join(current_app.root_path,'db', 'player_data.csv')
+    csv_path = os.path.join(current_app.root_path,'db', csv_name)
     stats = pd.read_csv(csv_path)
     #check all the values are error free
     stats['MP'] = pd.to_numeric(stats['MP'], errors='coerce')

@@ -10,9 +10,9 @@ import numpy as np
 import pandas as pd
 from flask import current_app
 
-def goalkeepers_graph():
+def goalkeepers_graph(csv_name):
     #find the goalkeeper csv and store it as a data frame
-    csv_path = os.path.join(current_app.root_path,'db', 'goalkeeper_data.csv')
+    csv_path = os.path.join(current_app.root_path,'db', csv_name)
     stats = pd.read_csv(csv_path)
     #check all the values are error free
     stats['MP'] = pd.to_numeric(stats['MP'], errors='coerce')
@@ -113,7 +113,7 @@ def goalkeepers_graph():
         x=alt.X('Player:N'),
     )
     #find the maximum value of the bar value of goals conceded
-    max_bar = float(gc_stats.groupby(['Player', 'Contribution Type'])['Conceded'].sum().max()) + 20
+    max_bar = float(gc_stats.groupby(['Player', 'Conceded Type'])['Conceded'].sum().max()) + 20
     #create the bar part of the y axis
     bar_gc = base_gc.mark_bar().encode(
         #gets number of goals conceded
