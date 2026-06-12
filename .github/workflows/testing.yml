@@ -1,0 +1,47 @@
+#name of test
+name: Reading FC Stats Testing
+#will run on pull requests to main or master and any push
+on:
+  pull_request:
+    branches: [main, master]
+  push:
+#what to run during tests
+jobs:
+  test:
+    #runs on latest version of ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      #check repository and python is set up correctly
+      - name: "Check Repository"
+        uses: actions/checkout@v4
+      - name: "Set Up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      #install all requirements
+      - name: "Install Dependencies"
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      #install Playwright properly
+      - name: "Install Playwright"
+        run: |
+          pip install pytest-playwright
+          playwright install --with-deps
+      #start docker
+      - name: Start Docker
+        run: docker compose up --build -d
+      #wait for docker and flask to load
+      - name: "Wait For Response"
+        run: |
+          timeout 30s bash -c '
+          until curl -s http://localhost:5000/ > /dev/null; 
+          do sleep 2
+          done'
+      #run tests
+      - name: Run Pytest
+        run: pytest
+      #close docker afterwards
+      - name: "Close Docker"
+        run: docker compose down
+

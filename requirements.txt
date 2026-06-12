@@ -2,3 +2,6 @@ flask
 altair
 pandas
 numpy
+pytest
+playwright
+pytest-playwright
