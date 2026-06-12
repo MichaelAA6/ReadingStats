@@ -15,10 +15,35 @@
 <h2>Goals Scored During Season</h2>
 {# Creates the Chart to display the information #}
 <div id="altair-chart"></div>
+<hr/>
+<h2>Total Goals</h2>
+<div id="goal-chart"></div>
+<hr/>
+<h2>Results</h2>
+<div id="result-chart"></div>
+<hr/>
+<h2>Possession</h2>
+<div id="poss-chart"></div>
+<hr/>
+<h2>Attendance</h2>
+<div id="attend-chart"></div>
+<hr/>
+<h2>Map</h2>
+<div id="map-chart"></div>
 
     <script type="text/javascript">
       const spec = {{ graph | safe }}
-
       vegaEmbed('#altair-chart', spec);
+      const goalSpec = {{goal_graph | safe}}
+      vegaEmbed('#goal-chart',goalSpec)
+      const resultSpec = {{result_graph | safe}}
+      vegaEmbed('#result-chart',resultSpec)
+      const possSpec = {{poss_graph | safe}}
+      vegaEmbed('#poss-chart',possSpec)
+      const attendSpec = {{attend_graph | safe}}
+      vegaEmbed('#attend-chart',attendSpec)
+      const mapSpec = {{map_graph | safe}}
+      vegaEmbed('#map-chart',mapSpec)
+
     </script>
 {% endblock %}
