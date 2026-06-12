@@ -55,6 +55,7 @@ def home_graph_match(csv_name):
     stats['GA'] = pd.to_numeric(stats['GA'], errors='coerce')
     stats['Poss'] = pd.to_numeric(stats['Poss'], errors='coerce')
     stats['Attendance'] = stats['Attendance'].replace({',': ''}, regex=True).astype(int)
+    stats['Date'] =pd.to_datetime(stats['Date'],errors='coerce')
     goals_scored = stats['GF'].sum()
     goals_conceded = stats['GA'].sum()
     goal_difference = goals_scored - goals_conceded
@@ -93,4 +94,25 @@ def home_graph_match(csv_name):
         tooltip=['Result', 'Total']
     )
     result_chart_json = result_chart.to_json()
-    return chart_goal_json, result_chart_json
+    poss_stats = stats[['Date','Poss','Opponent']].copy()
+    avg_poss = poss_stats['Poss'].mean()
+    poss_stats['AvgPoss'] = avg_poss
+    poss_chart = alt.Chart(poss_stats).mark_line(
+        point=alt.OverlayMarkDef(color="black",opacity=0.7),
+        interpolate='step-after'
+    ).encode(
+        x=alt.X('Date:T', title='Date'),
+        y=alt.Y('Poss:Q', title='Poss',scale=alt.Scale(zero=False)),
+        tooltip=['Date', 'Poss','Opponent'],
+    ).properties(
+        width=1000, height=500
+    )
+    line_poss = alt.Chart(poss_stats).mark_rule(color='red').encode(
+        y='AvgPoss',
+        tooltip=[
+            alt.Tooltip('AvgPoss',title='Average Possession'),
+        ],
+    )
+    poss_chart = poss_chart + line_poss
+    poss_chart_json = poss_chart.to_json()
+    return chart_goal_json, result_chart_json,poss_chart_json

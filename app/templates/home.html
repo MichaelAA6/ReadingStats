@@ -21,6 +21,9 @@
 <hr/>
 <h2>Results</h2>
 <div id="result-chart"></div>
+<hr/>
+<h2>Possession</h2>
+<div id="poss-chart"></div>
 
     <script type="text/javascript">
       const spec = {{ graph | safe }}
@@ -29,6 +32,8 @@
       vegaEmbed('#goal-chart',goalSpec)
       const resultSpec = {{result_graph | safe}}
       vegaEmbed('#result-chart',resultSpec)
+      const possSpec = {{poss_graph | safe}}
+      vegaEmbed('#poss-chart',possSpec)
 
     </script>
 {% endblock %}
