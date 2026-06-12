@@ -16,9 +16,13 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def home():
     #creates home page graph
-    graph = home_graph()
+    graph = home_graph('player_data.csv')
     return render_template('home.html',graph=graph)
 
+@main.route('/2425season')
+def home_2425season():
+    graph = home_graph('player_data2425.csv')
+    return render_template('home.html',graph=graph)
 #used to return goalkeepers route and return the html page
 @main.route('/goalkeepers')
 def goalkeepers():
