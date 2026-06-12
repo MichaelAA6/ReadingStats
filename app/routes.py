@@ -17,14 +17,14 @@ main = Blueprint('main', __name__)
 def home():
     #creates home page graph
     graph = home_graph('player_data.csv')
-    goal_graph,result_graph,poss_graph,attend_graph = home_graph_match('match_data.csv')
-    return render_template('home.html',graph=graph,goal_graph=goal_graph,result_graph=result_graph,poss_graph=poss_graph,attend_graph=attend_graph)
+    goal_graph,result_graph,poss_graph,attend_graph,map_graph = home_graph_match('match_data.csv')
+    return render_template('home.html',graph=graph,goal_graph=goal_graph,result_graph=result_graph,poss_graph=poss_graph,attend_graph=attend_graph,map_graph=map_graph)
 
 @main.route('/2425season')
 def home_2425season():
     graph = home_graph('player_data2425.csv')
-    goal_graph,result_graph,poss_graph,attend_graph = home_graph_match('match_data2425.csv')
-    return render_template('home.html',graph=graph,goal_graph=goal_graph,result_graph=result_graph,poss_graph=poss_graph,attend_graph=attend_graph)
+    goal_graph,result_graph,poss_graph,attend_graph,map_graph = home_graph_match('match_data2425.csv')
+    return render_template('home.html',graph=graph,goal_graph=goal_graph,result_graph=result_graph,poss_graph=poss_graph,attend_graph=attend_graph,map_graph=map_graph)
 #used to return goalkeepers route and return the html page
 @main.route('/goalkeepers')
 def goalkeepers():

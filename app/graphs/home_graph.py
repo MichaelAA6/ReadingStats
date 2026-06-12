@@ -154,4 +154,24 @@ def home_graph_match(csv_name):
         width=1000, height=500
     )
     attend_chart_json = attend_chart.to_json()
-    return chart_goal_json, result_chart_json,poss_chart_json,attend_chart_json
+    stadium_csv = pd.read_csv(os.path.join(current_app.root_path, 'db', 'stadiums.csv'))
+    stats = stats.merge(stadium_csv, left_on='Opponent',right_on='Team',how='left')
+    countries = alt.topo_feature('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json', 'countries')
+    projection = dict(type='mercator', scale=7000, center=[-1.5, 52.6])
+    map_chart = alt.Chart(countries).mark_geoshape(fill='#e8f0e8', stroke='#b0c4b0', strokeWidth=0.5).project(**projection).properties(width=1000,height=1000)
+    map_points = alt.Chart(stats).mark_point(color="red",size=100,filled=True).encode(
+        longitude='Lon:Q',
+        latitude='Lat:Q',
+        tooltip=[
+            alt.Tooltip('Team:N',title='Team'),
+            alt.Tooltip('Stadium:N',title='Stadium'),
+        ]
+    ).project(**projection)
+    map_labels = alt.Chart(stats).mark_text(align='left', fontSize=7,dy=12).encode(
+        longitude='Lon:Q',
+        latitude='Lat:Q',
+        text='Stadium:N',
+    ).project(**projection)
+    map_chart = (map_chart + map_points + map_labels).configure_view()
+    map_chart_json = map_chart.to_json()
+    return chart_goal_json, result_chart_json,poss_chart_json,attend_chart_json,map_chart_json

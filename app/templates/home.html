@@ -27,6 +27,9 @@
 <hr/>
 <h2>Attendance</h2>
 <div id="attend-chart"></div>
+<hr/>
+<h2>Map</h2>
+<div id="map-chart"></div>
 
     <script type="text/javascript">
       const spec = {{ graph | safe }}
@@ -39,6 +42,8 @@
       vegaEmbed('#poss-chart',possSpec)
       const attendSpec = {{attend_graph | safe}}
       vegaEmbed('#attend-chart',attendSpec)
+      const mapSpec = {{map_graph | safe}}
+      vegaEmbed('#map-chart',mapSpec)
 
     </script>
 {% endblock %}
