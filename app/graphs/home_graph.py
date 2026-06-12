@@ -47,3 +47,32 @@ def home_graph(csv_name):
     #make graph json so it can be displayed on html
     chart_json = chart.to_json()
     return chart_json
+
+def home_graph_match(csv_name):
+    csv_path = os.path.join(current_app.root_path,'db', csv_name)
+    stats = pd.read_csv(csv_path)
+    stats['GF'] = pd.to_numeric(stats['GF'], errors='coerce')
+    stats['GA'] = pd.to_numeric(stats['GA'], errors='coerce')
+    stats['Result'] = pd.to_numeric(stats['Result'], errors='coerce')
+    stats['Poss'] = pd.to_numeric(stats['Poss'], errors='coerce')
+    stats['Attendance'] = stats['Attendance'].replace({',': ''}, regex=True).astype(int)
+    goals_scored = stats['GF'].sum()
+    goals_conceded = stats['GA'].sum()
+    goal_difference = goals_scored - goals_conceded
+    goal_stats = pd.DataFrame({
+        'Type':['Goals Scored','Goals Conceded','Goals Difference'],
+        'Goals':[goals_scored, goals_conceded, goal_difference]
+    })
+    goal_chart = alt.Chart(goal_stats).mark_bar().encode(
+        x=alt.X('Type:N', title='Type',sort=None),
+        y=alt.Y('Goals:Q', title='Goals'),
+        tooltip=['Type', 'Goals'],
+        color=alt.Color('Type:N',
+            scale=alt.Scale(
+                domain=['Goals Scored', 'Goals Conceded', 'Goals Difference'],
+                range=['green','red','yellow']
+            )
+        ),
+    )
+    chart_json = goal_chart.to_json()
+    return chart_json

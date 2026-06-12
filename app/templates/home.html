@@ -15,10 +15,15 @@
 <h2>Goals Scored During Season</h2>
 {# Creates the Chart to display the information #}
 <div id="altair-chart"></div>
+<hr/>
+<h2>Total Goals</h2>
+<div id="goal-chart"></div>
 
     <script type="text/javascript">
       const spec = {{ graph | safe }}
-
       vegaEmbed('#altair-chart', spec);
+      const goalSpec = {{goal_graph | safe}}
+      vegaEmbed('#goal-chart',goalSpec)
+
     </script>
 {% endblock %}
