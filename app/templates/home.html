@@ -18,12 +18,17 @@
 <hr/>
 <h2>Total Goals</h2>
 <div id="goal-chart"></div>
+<hr/>
+<h2>Results</h2>
+<div id="result-chart"></div>
 
     <script type="text/javascript">
       const spec = {{ graph | safe }}
       vegaEmbed('#altair-chart', spec);
       const goalSpec = {{goal_graph | safe}}
       vegaEmbed('#goal-chart',goalSpec)
+      const resultSpec = {{result_graph | safe}}
+      vegaEmbed('#result-chart',resultSpec)
 
     </script>
 {% endblock %}

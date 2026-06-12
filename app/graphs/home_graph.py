@@ -53,7 +53,6 @@ def home_graph_match(csv_name):
     stats = pd.read_csv(csv_path)
     stats['GF'] = pd.to_numeric(stats['GF'], errors='coerce')
     stats['GA'] = pd.to_numeric(stats['GA'], errors='coerce')
-    stats['Result'] = pd.to_numeric(stats['Result'], errors='coerce')
     stats['Poss'] = pd.to_numeric(stats['Poss'], errors='coerce')
     stats['Attendance'] = stats['Attendance'].replace({',': ''}, regex=True).astype(int)
     goals_scored = stats['GF'].sum()
@@ -74,5 +73,24 @@ def home_graph_match(csv_name):
             )
         ),
     )
-    chart_json = goal_chart.to_json()
-    return chart_json
+    chart_goal_json = goal_chart.to_json()
+    result_count = stats['Result'].value_counts()
+    total_wins = result_count.get('W',0)
+    total_draws = result_count.get('D',0)
+    total_losses = result_count.get('L',0)
+    results_stats = pd.DataFrame({
+        'Result':["W","D","L"],
+        'Total':[total_wins,total_draws,total_losses],
+    })
+    result_chart = alt.Chart(results_stats).mark_arc(innerRadius=50).encode(
+        theta='Total:Q',
+        color=alt.Color('Result:N',
+            scale=alt.Scale(
+                domain=['W','D','L'],
+                range=['green','yellow','red']
+            )
+        ),
+        tooltip=['Result', 'Total']
+    )
+    result_chart_json = result_chart.to_json()
+    return chart_goal_json, result_chart_json
