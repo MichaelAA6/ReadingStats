@@ -24,6 +24,9 @@
 <hr/>
 <h2>Possession</h2>
 <div id="poss-chart"></div>
+<hr/>
+<h2>Attendance</h2>
+<div id="attend-chart"></div>
 
     <script type="text/javascript">
       const spec = {{ graph | safe }}
@@ -34,6 +37,8 @@
       vegaEmbed('#result-chart',resultSpec)
       const possSpec = {{poss_graph | safe}}
       vegaEmbed('#poss-chart',possSpec)
+      const attendSpec = {{attend_graph | safe}}
+      vegaEmbed('#attend-chart',attendSpec)
 
     </script>
 {% endblock %}

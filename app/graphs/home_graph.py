@@ -115,4 +115,43 @@ def home_graph_match(csv_name):
     )
     poss_chart = poss_chart + line_poss
     poss_chart_json = poss_chart.to_json()
-    return chart_goal_json, result_chart_json,poss_chart_json
+    attend_stats = stats[['Attendance','Date','Opponent','Venue']].copy()
+    home_attend_stats = attend_stats[(attend_stats['Venue'] == 'Home')]
+    away_attend_stats = attend_stats[(attend_stats['Venue'] == 'Away')]
+    avg_home_attend = home_attend_stats['Attendance'].mean().round(0)
+    home_attend_stats['AvgAttendance'] = avg_home_attend
+    avg_away_attend = away_attend_stats['Attendance'].mean().round(0)
+    away_attend_stats['AvgAttendance'] = avg_away_attend
+    home_line = alt.Chart(home_attend_stats).mark_line(
+        point=alt.OverlayMarkDef(color="black", opacity=0.7)
+    ).encode(
+        x=alt.X('Date:T', title='Date'),
+        y=alt.Y('Attendance:Q', title='Attendance'),
+        tooltip=['Date', 'Attendance','Opponent'],
+    )
+    away_line = alt.Chart(away_attend_stats).mark_line(
+        color='red',
+        point=alt.OverlayMarkDef(color="black", opacity=0.7)
+    ).encode(
+        x=alt.X('Date:T', title='Date'),
+        y=alt.Y('Attendance:Q', title='Attendance'),
+        tooltip=['Date', 'Attendance','Opponent'],
+    )
+    avg_home_line = alt.Chart(home_attend_stats).mark_rule(color="blue").encode(
+        y='AvgAttendance',
+        tooltip=[
+            alt.Tooltip('AvgAttendance',title='Average Home Attendance'),
+        ]
+    )
+    avg_away_line = alt.Chart(away_attend_stats).mark_rule(color="darkred").encode(
+        y='AvgAttendance',
+        tooltip=[
+            alt.Tooltip('AvgAttendance',title='Average Away Attendance'),
+        ]
+    )
+
+    attend_chart = (home_line + away_line + avg_home_line + avg_away_line).properties(
+        width=1000, height=500
+    )
+    attend_chart_json = attend_chart.to_json()
+    return chart_goal_json, result_chart_json,poss_chart_json,attend_chart_json
