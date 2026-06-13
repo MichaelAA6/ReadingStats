@@ -25,7 +25,7 @@
 
 ***
 
-<video src="./videos/Home2.mp4" controls width="100%"></video>
+![Home](./videos/Home.gif)
 Copyright, 2026, Michael Austoni
 
 You may copy this repository to view the application, but you may not use any of its content for 
