@@ -11,7 +11,7 @@ def test_run(playwright: Playwright) -> None:
     page.goto("http://localhost:5000/")
     #check that the header and subtext appear
     expect(page.locator("h1")).to_contain_text("Welcome to Reading Stats")
-    expect(page.locator("body")).to_contain_text("Displaying Their Stats in Convenient Graph Form")
+    expect(page.locator("body")).to_contain_text("Displaying Stats in Convenient Graph Form")
     #chcek graph appears and is there
     expect(page.locator("#altair-chart canvas")).to_be_visible()
     page.locator("#altair-chart canvas").click(position={"x":20,"y":90})

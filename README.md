@@ -24,6 +24,15 @@
     python main.py
 
 ***
+## Website Demos
+![Home](./videos/Home.gif)
+![Goalkeeper](./videos/Goalkeeper.gif)
+![Defenders](./videos/Defenders.gif)
+![Midfielders](./videos/Midfielders.gif)
+![Forwards](./videos/Forwards.gif)
+
+***
+
 Copyright, 2026, Michael Austoni
 
 You may copy this repository to view the application, but you may not use any of its content for 
