@@ -2,5 +2,10 @@
 {% block title %}History - Reading Stats{% endblock %}
 {% block content %}
 <h1>Historical Statistics</h1>
-
+<h2>Positions</h2>
+<div id="pos-chart"></div>
+<script type="text/javascript">
+      const posSpec = {{ position_graph | safe }}
+      vegaEmbed('#pos-chart', posSpec);
+</script>
 {% endblock %}

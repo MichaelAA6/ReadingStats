@@ -9,6 +9,7 @@ from app.graphs.goalkeeper_graph import goalkeepers_graph
 from app.graphs.defender_graph import defenders_graph
 from app.graphs.midfielder_graph import midfielders_graph
 from app.graphs.forwards_graph import forwards_graph
+from app.graphs.historical_graph import historical_graph
 
 main = Blueprint('main', __name__)
 
@@ -66,4 +67,5 @@ def forwards_2425season():
 #create historical page
 @main.route('/history')
 def history():
-    return render_template('history.html')
+    position_graph = historical_graph()
+    return render_template('history.html',position_graph=position_graph)
