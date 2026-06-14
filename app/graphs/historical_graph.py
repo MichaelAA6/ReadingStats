@@ -14,6 +14,9 @@ def historical_graph():
     stats = pd.read_csv(csv_path)
     #check goal values are error free
     stats['Goals'] = pd.to_numeric(stats['Goals'],errors='coerce')
+
+    """Position Chart"""
+
     #define the different league areas
     league_areas= pd.DataFrame({
         "PremTop":[0],
@@ -70,6 +73,33 @@ def historical_graph():
     )
     position_chart = prem_area + champ_area + L1_area + L2_area + position_chart
     position_chart_json = position_chart.to_json()
-    return position_chart_json
+
+    """Top Scorer Chart"""
+
+    tgs_bar = alt.Chart(stats).mark_bar().encode(
+        x=alt.X('Season:N',scale=alt.Scale(paddingInner=0.5)),
+        y=alt.Y('Goals:Q'),
+        color=alt.Color('TopGoal:N', legend=None,scale=alt.Scale(scheme='tableau20')),
+        tooltip=[
+            alt.Tooltip('Season:N',title="Season"),
+            alt.Tooltip('Division:N',title="Division"),
+            alt.Tooltip('TopGoal:N',title="Top Goal Scorer"),
+            alt.Tooltip('Goals:Q',title="Goals"),
+        ]
+    )
+    tgs_text = tgs_bar.mark_text(
+        align='center',
+        baseline='bottom',
+        fontSize=12,
+        angle=270,
+        dx=45,
+        dy=5,
+    ).encode(
+        text=alt.Text('TopGoal:N'),
+        color=alt.value('black')
+    )
+    tgs_chart = tgs_bar + tgs_text
+    tgs_chart_json = tgs_chart.to_json()
+    return position_chart_json, tgs_chart_json
 
 

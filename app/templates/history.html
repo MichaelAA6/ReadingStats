@@ -4,8 +4,13 @@
 <h1>Historical Statistics</h1>
 <h2>Positions</h2>
 <div id="pos-chart"></div>
+<hr/>
+<h2>Top Goal Scorers</h2>
+<div id="tgs-chart"></div>
 <script type="text/javascript">
       const posSpec = {{ position_graph | safe }}
       vegaEmbed('#pos-chart', posSpec);
+      const tgsSpec = {{ tgs_graph | safe }}
+      vegaEmbed('#tgs-chart',tgsSpec)
 </script>
 {% endblock %}
