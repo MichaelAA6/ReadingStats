@@ -25,5 +25,7 @@ def test_run(playwright: Playwright) -> None:
     page.get_by_role("link", name="Forwards").click()
     expect(page.locator("h1")).to_contain_text("Forwards")
     page.get_by_role("link", name="/25 Season").click()
+    page.get_by_role("link", name="History").click()
+    expect(page.locator("h1")).to_contain_text("Historical Statistics")
     context.close()
     browser.close()

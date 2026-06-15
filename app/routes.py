@@ -9,6 +9,7 @@ from app.graphs.goalkeeper_graph import goalkeepers_graph
 from app.graphs.defender_graph import defenders_graph
 from app.graphs.midfielder_graph import midfielders_graph
 from app.graphs.forwards_graph import forwards_graph
+from app.graphs.historical_graph import historical_graph
 
 main = Blueprint('main', __name__)
 
@@ -62,3 +63,9 @@ def forwards():
 def forwards_2425season():
     apps_graph, ga_graph, card_graph, shots_graph, offside_graph = forwards_graph('player_data2425.csv')
     return render_template('forwards.html', apps_graph=apps_graph, ga_graph=ga_graph, card_graph=card_graph,shots_graph=shots_graph, offside_graph=offside_graph)
+
+#create historical page
+@main.route('/history')
+def history():
+    position_graph,tgs_graph = historical_graph()
+    return render_template('history.html',position_graph=position_graph,tgs_graph=tgs_graph)
