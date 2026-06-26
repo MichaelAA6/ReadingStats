@@ -40,8 +40,8 @@ def home_graph(csv_name):
         angle=alt.Angle('Rotation:Q', scale=alt.Scale(domain=[0, 90])),
         color=alt.Color('Color:N', scale=None)
     ).properties(
-        width=400,  # Wider chart
-        height=800  # Taller chart
+        width=1000,  # Wider chart
+        height=1000  # Taller chart
     #allow people to move graph and zoom in
     ).interactive()
     #make graph json so it can be displayed on html
@@ -85,7 +85,7 @@ def home_graph_match(csv_name):
                 range=['green','red','yellow']
             )
         ),
-    )
+    ).properties(height=700,width=500).interactive()
     #convert chart to json so it can be displayed on html
     chart_goal_json = goal_chart.to_json()
 
@@ -113,7 +113,7 @@ def home_graph_match(csv_name):
             )
         ),
         tooltip=['Result', 'Total']
-    )
+    ).properties(height=700,width=500)
     result_chart_json = result_chart.to_json()
 
 
