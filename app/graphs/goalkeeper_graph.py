@@ -47,12 +47,14 @@ def goalkeepers_graph(csv_name):
     #creates donut shape
     c1 = chart_apps.mark_arc(innerRadius=20, stroke="#fff")
     #adds number
-    c2 = chart_apps.mark_text(radius=180,size=20).encode(
+    c2 = chart_apps.mark_text(radius=280,size=20).encode(
         text=alt.Text("MP:Q")
     )
     #combine both and then convert to json to allow for html
-    final_chart_apps = c1+c2
+    final_chart_apps = (c1+c2).properties(height=700, width=500)
     chart_apps_json = final_chart_apps.to_json()
+
+    """Cards Chart"""
 
     #returns data frame with only player and cards values
     cards_stats = keeper_stats[['Player','CrdY', 'CrdR']].copy()
@@ -89,7 +91,7 @@ def goalkeepers_graph(csv_name):
             alt.Tooltip('CardType:N', title='Card Type'),
             alt.Tooltip('Cards:Q', title='Cards')
         ]
-    )
+    ).properties(height=700, width=500)
     chart_cards_json = chart_cards.to_json()
 
     """Conceded Graph"""
@@ -111,7 +113,7 @@ def goalkeepers_graph(csv_name):
     #creates base graph with player x axis
     base_gc = alt.Chart(gc_stats).encode(
         x=alt.X('Player:N'),
-    )
+    ).properties(height=700, width=500)
     #find the maximum value of the bar value of goals conceded
     max_bar = float(gc_stats.groupby(['Player', 'Conceded Type'])['Conceded'].sum().max()) + 20
     #create the bar part of the y axis
@@ -198,7 +200,7 @@ def goalkeepers_graph(csv_name):
             alt.Tooltip('Player:N', title='Player'),
             alt.Tooltip('Save%:N', title='Save Percentage'),
         ]
-    )
+    ).properties(height=700, width=500)
     #combines both y-axes
     chart_ks = alt.layer(bar_ks, line_ks).resolve_scale(y="independent")
     chart_ks_json = chart_ks.to_json()
@@ -246,7 +248,7 @@ def goalkeepers_graph(csv_name):
             alt.Tooltip('Player:N', title='Player'),
             alt.Tooltip('CS%:N', title='Clean Sheets Percentage'),
         ]
-    )
+    ).properties(height=700, width=500)
     #combine the two y axes
     graph_cs = alt.layer(bar_cs, line_cs).resolve_scale(y="independent")
     graph_cs_json = graph_cs.to_json()

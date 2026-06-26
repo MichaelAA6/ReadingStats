@@ -68,8 +68,8 @@ def historical_graph():
             alt.Tooltip('Event:N',title="Events"),
         ],
     ).properties(
-        height=900,
-        width=900
+        height=1000,
+        width=1000
     )
     position_chart = prem_area + champ_area + L1_area + L2_area + position_chart
     position_chart_json = position_chart.to_json()
@@ -97,7 +97,7 @@ def historical_graph():
     ).encode(
         text=alt.Text('TopGoal:N'),
         color=alt.value('black')
-    )
+    ).properties(height=500,width=1000)
     tgs_chart = tgs_bar + tgs_text
     tgs_chart_json = tgs_chart.to_json()
     return position_chart_json, tgs_chart_json

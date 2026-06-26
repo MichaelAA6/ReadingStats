@@ -48,14 +48,15 @@ def midfielders_graph(csv_name):
     #create the donut shape
     c1 = chart_apps.mark_arc(innerRadius=20, stroke="#fff")
     #add the numbers to the outside of the chart
-    c2 = chart_apps.mark_text(radius=168, size=20).encode(
+    c2 = chart_apps.mark_text(radius=268, size=20).encode(
         text=alt.Text("MP:Q")
     )
     #comboine the charts
-    final_chart_apps = c1 + c2
+    final_chart_apps = (c1 + c2).properties(height=700, width=500)
     chart_apps_json = final_chart_apps.to_json()
 
     """Goals and Assists Chart"""
+
     #retrieve the stats needed
     ga_stats = midfielders_stats[['Player', 'Gls', 'Ast', 'G+A_p90']].copy()
     #melt the frame to better combine fields
@@ -106,7 +107,7 @@ def midfielders_graph(csv_name):
         ]
     )
     #combine the graphs
-    chart_ga = alt.layer(bar_ga, line_ga).resolve_scale(y="independent")
+    chart_ga = alt.layer(bar_ga, line_ga).resolve_scale(y="independent").properties(height=500, width=1000)
     chart_ga_json = chart_ga.to_json()
 
     """Cards Chart"""
@@ -145,7 +146,7 @@ def midfielders_graph(csv_name):
             alt.Tooltip('CardType:N', title='Card Type'),
             alt.Tooltip('Cards:Q', title='Cards')
         ]
-    )
+    ).properties(height=700, width=500)
     chart_cards_json = chart_cards.to_json()
 
     """Cross Graph"""
@@ -196,6 +197,6 @@ def midfielders_graph(csv_name):
         ]
     )
     #combine the graphs and areas
-    chart_cross = below_avg + above_avg + chart_cross + avg_chart
+    chart_cross = (below_avg + above_avg + chart_cross + avg_chart).properties(height=700, width=500)
     chart_cross_json = chart_cross.to_json()
     return chart_apps_json, chart_ga_json, chart_cards_json,chart_cross_json
