@@ -57,10 +57,14 @@ body{
     height: 100px;
     width: auto;
 }
+
 /*Used to manage when pointer is over navbar option*/
 .navbar a:hover{
     /*changes colour to indicate hover*/
     background-color: #3d96ff;
+}
+.navbar-logo a:hover{
+    background-color: #002d61;
 }
 /*used to manage the size of the breaks*/
 hr{
