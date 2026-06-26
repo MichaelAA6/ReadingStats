@@ -160,7 +160,7 @@ def midfielders_graph(csv_name):
     #create a frame storing the avg, highest and 0
     area_data = pd.DataFrame({
         'AvgCross':[avg_cross],
-        'HighestCross':[float(cross_stats['Crs'].max()) +16],
+        'HighestCross':[float(cross_stats['Crs'].max())],
         'Zero': [0]
     })
     #create an area below the avg
@@ -180,7 +180,7 @@ def midfielders_graph(csv_name):
         #make x-axis for the players
         x=alt.X('Player:N'),
         #make the y-axis for number of crosses
-        y=alt.Y('Crs:Q', title='Crosses'),
+        y=alt.Y('Crs:Q', title='Crosses',scale=alt.Scale(domain=[0, float(cross_stats['Crs'].max())],nice=False,padding=0),),
         #set the colour of each bar to specific player
         color=alt.Color("Player:N"),
         #let user hover over bar and view the number of crosses and players

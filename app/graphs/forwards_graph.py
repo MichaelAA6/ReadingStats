@@ -239,7 +239,7 @@ def forwards_graph(csv_name):
         #make x-axis players
         x=alt.X('Player:N'),
         #make y-axis offsides
-        y=alt.Y('Off:Q', title='Offside'),
+        y=alt.Y('Off:Q', title='Offside',scale=alt.Scale(domain=[0, float(off_stats['Off'].max())],nice=False,padding=0)),
         #match the colour to the player
         color=alt.Color('Player:N'),
         #can hover and view the player and number of offsides
