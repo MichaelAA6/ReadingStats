@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}About - Reading Stats{% endblock %}
+{% block content %}
+<h1>About Me</h1>
+<div class="images">
+  <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Reading Stats Logo">
+  <img src="{{ url_for('static', filename='images/me.jpg') }}" alt="Image of Me">
+</div>
+<h2> I am Michael <br/> I am a massive Reading Football Club Fan, while also having a interest in computing
+I decided to create this website not only to get a better understanding of the clubs performance but to also
+show off my skills in data presentation</h2>
+{% endblock %}

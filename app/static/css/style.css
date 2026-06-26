@@ -72,3 +72,7 @@ hr{
     height: 5px;
     background-color: black;
 }
+.images img{
+    height: 500px;
+    width: auto;
+}

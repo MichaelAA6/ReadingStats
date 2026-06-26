@@ -69,3 +69,8 @@ def forwards_2425season():
 def history():
     position_graph,tgs_graph = historical_graph()
     return render_template('history.html',position_graph=position_graph,tgs_graph=tgs_graph)
+
+#create about page
+@main.route('/about')
+def about():
+    return render_template('about.html')
