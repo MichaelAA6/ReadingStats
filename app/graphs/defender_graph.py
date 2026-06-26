@@ -51,11 +51,11 @@ def defenders_graph(csv_name):
     #creates donut shape
     c1 = chart_apps.mark_arc(innerRadius=20, stroke="#fff")
     #adds number
-    c2 = chart_apps.mark_text(radius=168, size=20).encode(
+    c2 = chart_apps.mark_text(radius=268, size=20).encode(
         text=alt.Text("MP:Q")
     )
     #combine the graphs
-    final_chart_apps = c1 + c2
+    final_chart_apps = (c1 + c2).properties(height=700, width=500)
     chart_apps_json = final_chart_apps.to_json()
 
     """Goals and Assist Chart"""
@@ -111,7 +111,7 @@ def defenders_graph(csv_name):
         ]
     )
     #combine the charts
-    chart_ga = alt.layer(bar_ga, line_ga).resolve_scale(y="independent")
+    chart_ga = alt.layer(bar_ga, line_ga).resolve_scale(y="independent").properties(width=1000,height=500)
     chart_ga_json = chart_ga.to_json()
 
     """Cards Chart"""
@@ -151,7 +151,7 @@ def defenders_graph(csv_name):
             alt.Tooltip('CardType:N', title='Card Type'),
             alt.Tooltip('Cards:Q', title='Cards')
         ]
-    )
+    ).properties(height=700, width=500)
     chart_cards_json = chart_cards.to_json()
 
     """Defensive Performance Chart"""
@@ -163,9 +163,9 @@ def defenders_graph(csv_name):
     #used to find the different points of graph used to create groups and names
     area_data = pd.DataFrame({
         "HlfTck":[(float(defender_stats['TklW'].max()))/2],
-        "FulTck":[(float(defender_stats['TklW'].max()))+1],
+        "FulTck":[(float(defender_stats['TklW'].max()))],
         "HlfInt":[(float(defender_stats['Int'].max()))/2],
-        "FulInt":[(float(defender_stats['Int'].max()))+3],
+        "FulInt":[(float(defender_stats['Int'].max()))],
         "Zerox":[0],
         "Zeroy":[0],
         "LILT":"Low Interception, Low Tackles",
@@ -225,9 +225,9 @@ def defenders_graph(csv_name):
     #create point graph
     defence_chart = alt.Chart(defence_stats).mark_point().encode(
         #set x-axis to tackles won
-        x=alt.X('TklW:Q',title="Tackles Won"),
+        x=alt.X('TklW:Q',title="Tackles Won",scale=alt.Scale(domain=[0,(float(defender_stats['TklW'].max()))],padding=0,nice=False)),
         #set y-axis to interceptions
-        y=alt.Y('Int:Q',title="Interceptions Won"),
+        y=alt.Y('Int:Q',title="Interceptions Won",scale=alt.Scale(domain=[0,(float(defender_stats['Int'].max()))],padding=0,nice=False)),
         #The colour is set to the number of fouls
         color=alt.Color(
             'Fls:Q',
@@ -246,6 +246,6 @@ def defenders_graph(csv_name):
         ]
     )
     #add all the areas and the graph
-    defence_chart = LILT_area + HILT_area + LIHT_area + HIHT_area + defence_chart
+    defence_chart = (LILT_area + HILT_area + LIHT_area + HIHT_area + defence_chart).properties(width=1000, height=1000)
     defence_chart_json = defence_chart.to_json()
     return chart_apps_json,chart_ga_json,chart_cards_json,defence_chart_json

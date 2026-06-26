@@ -51,11 +51,11 @@ def forwards_graph(csv_name):
     #create donut shape
     c1 = chart_apps.mark_arc(innerRadius=20, stroke="#fff")
     #add the numbers to outside the chart
-    c2 = chart_apps.mark_text(radius=168, size=20).encode(
+    c2 = chart_apps.mark_text(radius=268, size=20).encode(
         text=alt.Text("MP:Q")
     )
     #combine the charts
-    final_chart_apps = c1 + c2
+    final_chart_apps = (c1 + c2).properties(height=700, width=500)
     chart_apps_json = final_chart_apps.to_json()
 
     """Goals and Assists Chart"""
@@ -108,7 +108,7 @@ def forwards_graph(csv_name):
             alt.Tooltip('Player:N', title='Players Name'),
             alt.Tooltip('G+A_p90:Q', title='G+A per 90')
         ]
-    )
+    ).properties(height=500, width=1000)
     #combine the graphs
     chart_ga = alt.layer(bar_ga, line_ga).resolve_scale(y="independent")
     chart_ga_json = chart_ga.to_json()
@@ -150,7 +150,7 @@ def forwards_graph(csv_name):
             alt.Tooltip('CardType:N', title='Card Type'),
             alt.Tooltip('Cards:Q', title='Cards')
         ]
-    )
+    ).properties(height=700, width=500)
     chart_cards_json = chart_cards.to_json()
 
     """Shots Chart"""
@@ -205,7 +205,7 @@ def forwards_graph(csv_name):
         ]
     )
     #combine the graphs
-    chart_shots = alt.layer(bar_shots, line_shots).resolve_scale(y="independent")
+    chart_shots = alt.layer(bar_shots, line_shots).resolve_scale(y="independent").properties(height=500, width=1000)
     chart_shots_json = chart_shots.to_json()
 
     """Offside Chart"""
@@ -239,7 +239,7 @@ def forwards_graph(csv_name):
         #make x-axis players
         x=alt.X('Player:N'),
         #make y-axis offsides
-        y=alt.Y('Off:Q', title='Offside'),
+        y=alt.Y('Off:Q', title='Offside',scale=alt.Scale(domain=[0, float(off_stats['Off'].max())],nice=False,padding=0)),
         #match the colour to the player
         color=alt.Color('Player:N'),
         #can hover and view the player and number of offsides
@@ -256,6 +256,6 @@ def forwards_graph(csv_name):
         ]
     )
     #combine the elements
-    chart_off = below_avg + above_avg + chart_off + line_off
+    chart_off = (below_avg + above_avg + chart_off + line_off).properties(height=700, width=500)
     chart_off_json = chart_off.to_json()
     return chart_apps_json, chart_ga_json, chart_cards_json,chart_shots_json,chart_off_json
