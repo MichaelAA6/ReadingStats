@@ -163,9 +163,9 @@ def defenders_graph(csv_name):
     #used to find the different points of graph used to create groups and names
     area_data = pd.DataFrame({
         "HlfTck":[(float(defender_stats['TklW'].max()))/2],
-        "FulTck":[(float(defender_stats['TklW'].max()))+1],
+        "FulTck":[(float(defender_stats['TklW'].max()))],
         "HlfInt":[(float(defender_stats['Int'].max()))/2],
-        "FulInt":[(float(defender_stats['Int'].max()))+3],
+        "FulInt":[(float(defender_stats['Int'].max()))],
         "Zerox":[0],
         "Zeroy":[0],
         "LILT":"Low Interception, Low Tackles",
@@ -225,9 +225,9 @@ def defenders_graph(csv_name):
     #create point graph
     defence_chart = alt.Chart(defence_stats).mark_point().encode(
         #set x-axis to tackles won
-        x=alt.X('TklW:Q',title="Tackles Won"),
+        x=alt.X('TklW:Q',title="Tackles Won",scale=alt.Scale(domain=[0,(float(defender_stats['TklW'].max()))],padding=0,nice=False)),
         #set y-axis to interceptions
-        y=alt.Y('Int:Q',title="Interceptions Won"),
+        y=alt.Y('Int:Q',title="Interceptions Won",scale=alt.Scale(domain=[0,(float(defender_stats['Int'].max()))],padding=0,nice=False)),
         #The colour is set to the number of fouls
         color=alt.Color(
             'Fls:Q',
