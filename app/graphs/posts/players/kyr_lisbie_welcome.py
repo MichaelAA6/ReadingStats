@@ -11,11 +11,11 @@ from pathlib import Path
 root = Path(__file__).resolve().parents[4]
 print(root)
 png_path1 = root / 'images' / 'kyr_lisbie_welcome1.png'
-json_path1 = root / 'app' / 'static' / 'jsons' / 'kyr_lisbie_welcome1.json'
+json_path1 = root / 'app' / 'static' / 'jsons' / 'players' / 'KL' / 'kyr_lisbie_welcome1.json'
 png_path2 = root / 'images' / 'kyr_lisbie_welcome2.png'
-json_path2 = root / 'app' / 'static' / 'jsons' / 'kyr_lisbie_welcome2.json'
+json_path2 = root / 'app' / 'static' / 'jsons' / 'players' / 'KL' / 'kyr_lisbie_welcome2.json'
 png_path3 = root / 'images' / 'kyr_lisbie_welcome3.png'
-json_path3 = root / 'app' / 'static' / 'jsons' / 'kyr_lisbie_welcome3.json'
+json_path3 = root / 'app' / 'static' / 'jsons' / 'players' / 'KL' / 'kyr_lisbie_welcome3.json'
 
 
 #store data for graph
