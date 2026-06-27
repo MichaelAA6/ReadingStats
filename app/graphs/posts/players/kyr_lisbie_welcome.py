@@ -1,7 +1,7 @@
 """
     kyr_lisbie_welcome.py
     used to create the graphs used to show off kyreece lisbie stats to similar players
-    :returns goals/assists and shooting graph
+    :returns goals/assists, shooting graph, passing graph
 """
 
 import altair as alt
@@ -14,14 +14,16 @@ png_path1 = root / 'images' / 'kyr_lisbie_welcome1.png'
 json_path1 = root / 'app' / 'static' / 'jsons' / 'kyr_lisbie_welcome1.json'
 png_path2 = root / 'images' / 'kyr_lisbie_welcome2.png'
 json_path2 = root / 'app' / 'static' / 'jsons' / 'kyr_lisbie_welcome2.json'
+png_path3 = root / 'images' / 'kyr_lisbie_welcome3.png'
+json_path3 = root / 'app' / 'static' / 'jsons' / 'kyr_lisbie_welcome3.json'
 
 
 #store data for graph
 data = [
-    ["Player","Goals","Assists","G+A Per 90","Shots","Shots On Target","Shots On Target%"],
-    ["Kyreece Lisbie",11,6,0.51,74,33,44.6],
-    ["Harry Anderson",12,5,0.57,45,17,37.8],
-    ["Calum Agius",6,2,0.24,36,14,38.9]
+    ["Player","Goals","Assists","G+A Per 90","Shots","Shots On Target","Shots On Target%","Pass%","Cross%","LongBall%"],
+    ["Kyreece Lisbie",11,6,0.51,74,33,44.6,69.6,9.2,23.8],
+    ["Harry Anderson",12,5,0.57,45,17,37.8,69.8,24.1,26.8],
+    ["Calum Agius",6,2,0.24,36,14,38.9,74.0,21.4,32.0]
 ]
 
 #store it as a dataframe
@@ -144,3 +146,35 @@ final_shots = alt.layer(bar_shots, line_shots,text_shots
 #create the graphs
 final_shots.save(png_path2,scale_factor=2.0)
 final_shots.save(json_path2)
+
+
+"""Passing Graph"""
+
+pass_stats = df.melt(
+    id_vars=['Player'],
+    value_vars=['Pass%','Cross%','LongBall%'],
+    var_name = 'Passing Type',
+    value_name = 'Count'
+)
+pass_chart = alt.Chart(pass_stats).mark_bar().encode(
+    x = alt.X('Player:N',sort=['Kyreece Lisbie']),
+    y = alt.Y('sum(Count):Q',title='Pass%'),
+    xOffset='Passing Type:N',
+    color=alt.Color('Passing Type:N',
+                    scale=alt.Scale(
+                        domain=['Pass%', 'Cross%', 'LongBall%'],
+                        range=['#2e2b5c', '#6b1400', '#004a1e']
+                    )
+    )
+)
+pass_text = pass_chart.mark_text(
+    align='center',
+    dy=-10,
+    size=17
+).encode(
+    y=alt.Y('sum(Count):Q',),
+    text=alt.Text('sum(Count):Q')
+)
+pass_chart = (pass_chart + pass_text).properties(width=500,height=800)
+pass_chart.save(png_path3,scale_factor=2.0)
+pass_chart.save(json_path3)
