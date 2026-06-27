@@ -76,3 +76,19 @@ hr{
     height: 500px;
     width: auto;
 }
+/*used to create post box*/
+.post-box{
+    background-color: white;
+    width: 1000px;
+    margin: 30px auto;
+
+}
+/*used to create header in post*/
+.post-header{
+    display: flex;
+    justify-content: space-between;
+}
+/*used to manage text in box*/
+.post-text{
+    text-align: left;
+}

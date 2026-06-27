@@ -53,7 +53,7 @@ bar_ga = base_ga.mark_bar().encode(
                     )),
     tooltip=[
         alt.Tooltip('Player:N',title='Player Name'),
-        alt.Tooltip('Contribution Type:Q',title='Type of Contribution'),
+        alt.Tooltip('Contribution Type:N',title='Type of Contribution'),
         alt.Tooltip('Count:Q',title='Value'),
     ]
 )
