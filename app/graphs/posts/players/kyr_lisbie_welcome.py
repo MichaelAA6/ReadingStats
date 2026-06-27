@@ -16,14 +16,16 @@ png_path2 = root / 'images' / 'kyr_lisbie_welcome2.png'
 json_path2 = root / 'app' / 'static' / 'jsons' / 'players' / 'KL' / 'kyr_lisbie_welcome2.json'
 png_path3 = root / 'images' / 'kyr_lisbie_welcome3.png'
 json_path3 = root / 'app' / 'static' / 'jsons' / 'players' / 'KL' / 'kyr_lisbie_welcome3.json'
-
+png_path4 = root / 'images' / 'kyr_lisbie_welcome4.png'
+json_path4 = root / 'app' / 'static' / 'jsons' / 'players' / 'KL' / 'kyr_lisbie_welcome4.json'
 
 #store data for graph
 data = [
-    ["Player","Goals","Assists","G+A Per 90","Shots","Shots On Target","Shots On Target%","Pass%","Cross%","LongBall%"],
-    ["Kyreece Lisbie",11,6,0.51,74,33,44.6,69.6,9.2,23.8],
-    ["Harry Anderson",12,5,0.57,45,17,37.8,69.8,24.1,26.8],
-    ["Calum Agius",6,2,0.24,36,14,38.9,74.0,21.4,32.0]
+    ["Player","Goals","Assists","G+A Per 90","Shots","Shots On Target",
+     "Shots On Target%","Pass%","Cross%","LongBall%","Dribbles","Touches in Opp Box"],
+    ["Kyreece Lisbie",11,6,0.51,74,33,44.6,69.6,9.2,23.8,38,201],
+    ["Harry Anderson",12,5,0.57,45,17,37.8,69.8,24.1,26.8,32,112],
+    ["Calum Agius",6,2,0.24,36,14,38.9,74.0,21.4,32.0,10,64]
 ]
 
 #store it as a dataframe
@@ -150,12 +152,14 @@ final_shots.save(json_path2)
 
 """Passing Graph"""
 
+#create data frame with correct stats
 pass_stats = df.melt(
     id_vars=['Player'],
     value_vars=['Pass%','Cross%','LongBall%'],
     var_name = 'Passing Type',
     value_name = 'Count'
 )
+#create bar charts of stats
 pass_chart = alt.Chart(pass_stats).mark_bar().encode(
     x = alt.X('Player:N',sort=['Kyreece Lisbie']),
     y = alt.Y('sum(Count):Q',title='Pass%'),
@@ -165,8 +169,14 @@ pass_chart = alt.Chart(pass_stats).mark_bar().encode(
                         domain=['Pass%', 'Cross%', 'LongBall%'],
                         range=['#2e2b5c', '#6b1400', '#004a1e']
                     )
-    )
+    ),
+    tooltip = [
+        alt.Tooltip('Player:N',title='Player Name'),
+        alt.Tooltip('Passing Type:N',title='Passing Type'),
+        alt.Tooltip('Count:Q',title='Total'),
+    ]
 )
+#create text to appear on graph
 pass_text = pass_chart.mark_text(
     align='center',
     dy=-10,
@@ -176,5 +186,47 @@ pass_text = pass_chart.mark_text(
     text=alt.Text('sum(Count):Q')
 )
 pass_chart = (pass_chart + pass_text).properties(width=500,height=800)
+#create graphs
 pass_chart.save(png_path3,scale_factor=2.0)
 pass_chart.save(json_path3)
+
+"""Attacking Graph"""
+
+#create data frame for this graph
+attack_stats = df.melt(
+    id_vars=['Player'],
+    value_vars=['Dribbles','Touches in Opp Box'],
+    var_name = 'Attacking Type',
+    value_name = 'Count'
+)
+
+#create bar chart with stats
+pass_chart = alt.Chart(attack_stats).mark_bar().encode(
+    x = alt.X('Player:N',sort=['Kyreece Lisbie']),
+    y = alt.Y('sum(Count):Q',title='Attacking'),
+    xOffset='Attacking Type:N',
+    color=alt.Color('Attacking Type:N',
+                    scale=alt.Scale(
+                        domain=['Dribbles', 'Touches in Opp Box'],
+                        range=['#08bd14', '#bd2308']
+                    )
+    ),
+    tooltip = [
+        alt.Tooltip('Player:N',title='Player Name'),
+        alt.Tooltip('Attacking Type:N',title='Attacking Type'),
+        alt.Tooltip('Count:Q',title='Total'),
+    ]
+)
+#create text to appear on graph
+pass_text = pass_chart.mark_text(
+    align='center',
+    dy=-10,
+    size=17
+).encode(
+    y=alt.Y('sum(Count):Q'),
+    text=alt.Text('sum(Count):Q')
+)
+pass_chart = (pass_chart + pass_text).properties(width=500,height=800)
+#create graphs
+pass_chart.save(png_path4,scale_factor=2.0)
+pass_chart.save(json_path4)
