@@ -6,6 +6,15 @@
 
 import altair as alt
 import pandas as pd
+from pathlib import Path
+#get root position and create pathway for saving jsons and images
+root = Path(__file__).resolve().parents[4]
+print(root)
+png_path1 = root / 'images' / 'kyr_lisbie_welcome1.png'
+json_path1 = root / 'app' / 'static' / 'jsons' / 'kyr_lisbie_welcome1.json'
+png_path2 = root / 'images' / 'kyr_lisbie_welcome2.png'
+json_path2 = root / 'app' / 'static' / 'jsons' / 'kyr_lisbie_welcome2.json'
+
 
 #store data for graph
 data = [
@@ -53,7 +62,7 @@ line_ga = base_ga.mark_line(
     color='red',
     point = alt.OverlayMarkDef(color="black",opacity=0.7),
 ).encode(
-    y=alt.Y('G+A Per 90:Q',title='Goals And Assists Per 90'),
+    y=alt.Y('G+A Per 90:Q'),
     tooltip=[
         alt.Tooltip('Player:N',title='Player Name'),
         alt.Tooltip('G+A Per 90:Q',title='Goals + Assists Per 90'),
@@ -73,8 +82,8 @@ text_ga = base_ga.mark_text(
 final_ga = alt.layer(bar_ga, line_ga,text_ga
                         ).resolve_scale(y="independent").properties(width=500,height=800)
 #creates the json and png of graph
-final_ga.save('../../../../images/kyr_lisbie_welcome1.png')
-final_ga.save('../../jsons/kyr_lisbie_welcome1.json')
+final_ga.save(png_path1,scale_factor=2.0)
+final_ga.save(json_path1)
 
 """Shooting Graph"""
 
@@ -114,7 +123,7 @@ line_shots = base_shots.mark_line(
     point = alt.OverlayMarkDef(color="black",opacity=0.7),
 ).encode(
     y=alt.Y('Shots On Target%:Q',
-            title="Shots on Target Percentage %"),
+            ),
     tooltip = [
         alt.Tooltip('Player:N',title='Player Name'),
         alt.Tooltip('Shots On Target%:Q',title='Value'),
@@ -133,5 +142,5 @@ text_shots = base_shots.mark_text(
 final_shots = alt.layer(bar_shots, line_shots,text_shots
                         ).resolve_scale(y="independent").properties(width=500,height=800)
 #create the graphs
-final_shots.save('../../../../images/kyr_lisbie_welcome2.png')
-final_shots.save('../../jsons/kyr_lisbie_welcome2.json')
+final_shots.save(png_path2,scale_factor=2.0)
+final_shots.save(json_path2)
