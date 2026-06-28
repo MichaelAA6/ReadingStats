@@ -9,10 +9,13 @@ import altair as alt
 import numpy as np
 import pandas as pd
 from flask import current_app
+from pathlib import Path
 
-def home_graph(csv_name):
+def home_graph(csv_name,season):
     #retrieves the CSV file of player data
-    csv_path = os.path.join(current_app.root_path,'db', csv_name)
+    root = Path(__file__).resolve().parents[1]
+    csv_path = root / 'db' / csv_name
+    json_output = root / 'static' / 'jsons' / 'home' / season
     #read the csv file and make sure the data retrieved is error free
     stats = pd.read_csv(csv_path)
     #specifically for minutes remove commas example 4,300 -> 4300
@@ -45,12 +48,13 @@ def home_graph(csv_name):
     #allow people to move graph and zoom in
     ).interactive()
     #make graph json so it can be displayed on html
-    chart_json = chart.to_json()
-    return chart_json
+    chart.save(str(json_output / 'scorers.json'))
 
-def home_graph_match(csv_name):
+def home_graph_match(csv_name,season):
     #connect to csv file for match data and make it a frame
-    csv_path = os.path.join(current_app.root_path,'db', csv_name)
+    root = Path(__file__).resolve().parents[1]
+    csv_path = root / 'db' / csv_name
+    json_output = root / 'static' / 'jsons' / 'home' / season
     stats = pd.read_csv(csv_path)
     #go throught stats and make sure all the data is error free
     stats['GF'] = pd.to_numeric(stats['GF'], errors='coerce')
@@ -85,9 +89,9 @@ def home_graph_match(csv_name):
                 range=['green','red','yellow']
             )
         ),
-    ).properties(height=700,width=500).interactive()
+    ).properties(height=700,width=500)
     #convert chart to json so it can be displayed on html
-    chart_goal_json = goal_chart.to_json()
+    goal_chart.save(str(json_output / 'goals.json'))
 
     """Result Chart"""
 
@@ -114,7 +118,7 @@ def home_graph_match(csv_name):
         ),
         tooltip=['Result', 'Total']
     ).properties(height=700,width=500)
-    result_chart_json = result_chart.to_json()
+    result_chart.save(str(json_output / 'results.json'))
 
 
     """Possession Chart"""
@@ -149,7 +153,7 @@ def home_graph_match(csv_name):
     )
     #combine the charts
     poss_chart = poss_chart + line_poss
-    poss_chart_json = poss_chart.to_json()
+    poss_chart.save(str(json_output / 'poss.json'))
 
     """Attendance Chart"""
 
@@ -201,12 +205,12 @@ def home_graph_match(csv_name):
     attend_chart = (home_line + away_line + avg_home_line + avg_away_line).properties(
         width=1000, height=500
     )
-    attend_chart_json = attend_chart.to_json()
+    attend_chart.save(str(json_output / 'attend.json'))
 
     """Map Chart"""
 
     #retrieve stadium csv then merge both databases on the opponent and team
-    stadium_csv = pd.read_csv(os.path.join(current_app.root_path, 'db', 'stadiums.csv'))
+    stadium_csv = pd.read_csv(root / 'db' / 'stadiums.csv')
     stats = stats.merge(stadium_csv, left_on='Opponent',right_on='Team',how='left')
     #retreieve the map graph
     countries = alt.topo_feature('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json', 'countries')
@@ -234,5 +238,9 @@ def home_graph_match(csv_name):
     ).project(**projection)
     #combine all parts and configure the view
     map_chart = (map_chart + map_points + map_labels).configure_view()
-    map_chart_json = map_chart.to_json()
-    return chart_goal_json, result_chart_json,poss_chart_json,attend_chart_json,map_chart_json
+    map_chart.save(str(json_output / 'map.json'))
+
+home_graph('player_data.csv','2526')
+home_graph('player_data2425.csv','2425')
+home_graph_match('match_data.csv','2526')
+home_graph_match('match_data2425.csv','2425')
