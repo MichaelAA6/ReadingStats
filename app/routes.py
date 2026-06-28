@@ -4,9 +4,6 @@
     :returns home,goalkeepers,defenders,midfielders,forwards
 """
 from flask import Blueprint, render_template
-from app.graphs.home_graph import home_graph, home_graph_match
-from app.graphs.goalkeeper_graph import goalkeepers_graph
-from app.graphs.defender_graph import defenders_graph
 from app.graphs.midfielder_graph import midfielders_graph
 from app.graphs.forwards_graph import forwards_graph
 from app.graphs.historical_graph import historical_graph
@@ -38,12 +35,10 @@ def defenders_2425season():
 @main.route('/midfielders')
 def midfielders():
     #creates and returns midfielders graph
-    apps_graph, ga_graph,card_graph,cross_graph = midfielders_graph('player_data.csv')
-    return render_template('midfielders.html',apps_graph=apps_graph,ga_graph=ga_graph,card_graph=card_graph,cross_graph=cross_graph)
+    return render_template('midfielders.html',season='2526')
 @main.route('/midfielders/2425season')
 def midfielders_2425season():
-    apps_graph, ga_graph, card_graph, cross_graph = midfielders_graph('player_data2425.csv')
-    return render_template('midfielders.html', apps_graph=apps_graph, ga_graph=ga_graph, card_graph=card_graph,cross_graph=cross_graph)
+    return render_template('midfielders.html',season='2425')
 @main.route('/forwards')
 def forwards():
     #creates and returns forwards graph
