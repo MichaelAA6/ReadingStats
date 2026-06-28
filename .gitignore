@@ -30,3 +30,4 @@ __pycache__/
 .DS_Store
 Thumbs.db
 """
+/app/static/jsons/players/KL/kyr_lisbie_welcome4.json

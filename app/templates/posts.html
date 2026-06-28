@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Posts - Reading Stats{% endblock %}
+{% block content %}
+<h1>Posts</h1>
+<div class="post-box">
+  <div class="post-header">
+    <h2>Kyrecce Lisbie Welcome Post</h2>
+    <h2>27/06/2026</h2>
+  </div>
+  <div class =post-text>
+    <h3>Here is a look at some of Kyreece Lisbie's last season stats compared to one of his teammates, Harry Anderson,
+    and a player similar in position and league finish, Calum Agius of Crewe Alexandra </h3>
+    <h3>First we look at Goals and Assists where Lisbie is close to his Harry, and is ahead of Calum by a decent amount</h3>
+  </div>
+  <div id="kyr_lisbie_welcome1"></div>
+  <div class="post-text">
+    <h3>Next we look at the shots of each player, in which we can see Lisbie is ahead of both players in all values, showing how
+    he could be consistent in getting shots off and getting them on target</h3>
+  </div>
+  <div id="kyr_lisbie_welcome2"></div>
+  <div class="post-text">
+    <h3>When looking at the players passing, we can see that Lisbie is behind on all passing values, suggesting that he might be more of
+    an attacking winger who focuses on getting down the pitch rather than building up play</h3>
+  </div>
+  <div id="kyr_lisbie_welcome3"></div>
+  <div class="post-text">
+    <h3>Finally, Looking at some attacking stats its clear that Lisbie exceeds in getting forward with the ball, with more
+    dribbles and a lot more touches in the opposition box, once again suggesting that Lisbie is best played as a
+    high line attacking midfielder</h3>
+  </div>
+  <div id="kyr_lisbie_welcome4"></div>
+  <div class="post-text">
+    <h3>Overall, I think this a brilliant signing for both the club and Leam. He should be a worthy investment who could be sold
+    for a decent amount and also suits Leam's philosophy of fast wingers who get into the box and get shots off</h3>
+  </div>
+</div>
+<script type="text/javascript">
+  vegaEmbed('#kyr_lisbie_welcome1',"{{ url_for('static', filename='jsons/players/KL/kyr_lisbie_welcome1.json') }}");
+  vegaEmbed('#kyr_lisbie_welcome2',"{{ url_for('static', filename='jsons/players/KL/kyr_lisbie_welcome2.json') }}")
+  vegaEmbed('#kyr_lisbie_welcome3',"{{ url_for('static', filename='jsons/players/KL/kyr_lisbie_welcome3.json') }}")
+  vegaEmbed('#kyr_lisbie_welcome4',"{{ url_for('static', filename='jsons/players/KL/kyr_lisbie_welcome4.json') }}")
+</script>
+{% endblock %}

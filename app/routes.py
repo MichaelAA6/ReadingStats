@@ -74,3 +74,8 @@ def history():
 @main.route('/about')
 def about():
     return render_template('about.html')
+
+#create posts page
+@main.route('/posts')
+def posts():
+    return render_template('posts.html')
