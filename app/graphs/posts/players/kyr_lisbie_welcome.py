@@ -1,7 +1,7 @@
 """
     kyr_lisbie_welcome.py
     used to create the graphs used to show off kyreece lisbie stats to similar players
-    :returns goals/assists, shooting graph, passing graph
+    :returns goals/assists, shooting graph, passing graph and possession graph
 """
 
 import altair as alt

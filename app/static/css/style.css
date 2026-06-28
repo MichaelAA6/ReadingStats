@@ -81,6 +81,8 @@ hr{
     background-color: white;
     width: 1000px;
     margin: 30px auto;
+    padding: 10px;
+    outline: black solid 5px;
 
 }
 /*used to create header in post*/
