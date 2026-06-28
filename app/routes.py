@@ -30,12 +30,10 @@ def home_2425season():
 @main.route('/goalkeepers')
 def goalkeepers():
     #creates and returns the goalkeepers graph
-    apps_graph,card_graph,conceded_graph,save_graph,clean_graph = goalkeepers_graph('goalkeeper_data.csv')
-    return render_template('goalkeepers.html',apps_graph=apps_graph,card_graph=card_graph,conceded_graph=conceded_graph,save_graph=save_graph,clean_graph=clean_graph)
+    return render_template('goalkeepers.html',season='2526')
 @main.route('/goalkeepers/2425season')
 def goalkeepers_2425season():
-    apps_graph, card_graph, conceded_graph, save_graph, clean_graph = goalkeepers_graph('goalkeeper_data2425.csv')
-    return render_template('goalkeepers.html', apps_graph=apps_graph, card_graph=card_graph,conceded_graph=conceded_graph, save_graph=save_graph, clean_graph=clean_graph)
+    return render_template('goalkeepers.html',season='2425')
 @main.route('/defenders')
 def defenders():
     #creates and returns defenders graph
