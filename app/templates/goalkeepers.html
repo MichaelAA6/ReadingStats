@@ -23,15 +23,10 @@
 <h2>Clean Sheets</h2>
 <div id="clean-chart"></div>
     <script type="text/javascript">
-      const appsSpec = {{ apps_graph | safe }}
-      vegaEmbed('#apps-chart', appsSpec);
-      const cardSpec = {{ card_graph | safe }}
-      vegaEmbed('#cards-chart', cardSpec);
-      const conSpec = {{conceded_graph | safe}}
-      vegaEmbed('#conceded-chart',conSpec)
-      const saveSpec = {{save_graph | safe}}
-      vegaEmbed('#save-chart',saveSpec)
-      const cleanSpec = {{clean_graph | safe}}
-      vegaEmbed('#clean-chart',cleanSpec)
+      vegaEmbed('#apps-chart',"{{ url_for('static', filename='jsons/goalkeepers/' ~ season ~ '/apps.json') }}" );
+      vegaEmbed('#cards-chart',"{{ url_for('static', filename='jsons/goalkeepers/' ~ season ~ '/cards.json') }}" );
+      vegaEmbed('#conceded-chart',"{{ url_for('static', filename='jsons/goalkeepers/' ~ season ~ '/conceded.json') }}")
+      vegaEmbed('#save-chart',"{{ url_for('static', filename='jsons/goalkeepers/' ~ season ~ '/saves.json') }}")
+      vegaEmbed('#clean-chart',"{{ url_for('static', filename='jsons/goalkeepers/' ~ season ~ '/clean.json') }}")
     </script>
 {% endblock %}

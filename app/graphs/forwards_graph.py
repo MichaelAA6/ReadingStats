@@ -10,9 +10,12 @@ import altair as alt
 import numpy as np
 import pandas as pd
 from flask import current_app
-def forwards_graph(csv_name):
+from pathlib import Path
+def forwards_graph(csv_name,season):
     #find the players in the database and create a pd Frame
-    csv_path = os.path.join(current_app.root_path,'db', csv_name)
+    root = Path(__file__).resolve().parents[1]
+    csv_path = root / 'db' / csv_name
+    json_output = root / 'static' / 'jsons' / 'forwards' / season
     stats = pd.read_csv(csv_path)
     #check all values are error free
     stats['MP'] = pd.to_numeric(stats['MP'], errors='coerce')
@@ -56,7 +59,7 @@ def forwards_graph(csv_name):
     )
     #combine the charts
     final_chart_apps = (c1 + c2).properties(height=700, width=500)
-    chart_apps_json = final_chart_apps.to_json()
+    final_chart_apps.save(str(json_output / 'apps.json'))
 
     """Goals and Assists Chart"""
 
@@ -111,7 +114,7 @@ def forwards_graph(csv_name):
     ).properties(height=500, width=1000)
     #combine the graphs
     chart_ga = alt.layer(bar_ga, line_ga).resolve_scale(y="independent")
-    chart_ga_json = chart_ga.to_json()
+    chart_ga.save(str(json_output / 'ga.json'))
 
     """Cards Chart"""
 
@@ -151,7 +154,7 @@ def forwards_graph(csv_name):
             alt.Tooltip('Cards:Q', title='Cards')
         ]
     ).properties(height=700, width=500)
-    chart_cards_json = chart_cards.to_json()
+    chart_cards.save(str(json_output / 'cards.json'))
 
     """Shots Chart"""
 
@@ -206,7 +209,7 @@ def forwards_graph(csv_name):
     )
     #combine the graphs
     chart_shots = alt.layer(bar_shots, line_shots).resolve_scale(y="independent").properties(height=500, width=1000)
-    chart_shots_json = chart_shots.to_json()
+    chart_shots.save(str(json_output / 'shots.json'))
 
     """Offside Chart"""
 
@@ -257,5 +260,7 @@ def forwards_graph(csv_name):
     )
     #combine the elements
     chart_off = (below_avg + above_avg + chart_off + line_off).properties(height=700, width=500)
-    chart_off_json = chart_off.to_json()
-    return chart_apps_json, chart_ga_json, chart_cards_json,chart_shots_json,chart_off_json
+    chart_off.save(str(json_output / 'off.json'))
+
+forwards_graph('player_data.csv','2526')
+forwards_graph('player_data2425.csv','2425')

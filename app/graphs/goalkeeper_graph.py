@@ -3,16 +3,15 @@
     Used to return the goalkeepers graphs used on the website
     :returns Appearance,Cards,Conceded,Saves,Clean Sheets
 """
-import os
-import random
 import altair as alt
-import numpy as np
 import pandas as pd
-from flask import current_app
+from pathlib import Path
 
-def goalkeepers_graph(csv_name):
+def goalkeepers_graph(csv_name,season):
     #find the goalkeeper csv and store it as a data frame
-    csv_path = os.path.join(current_app.root_path,'db', csv_name)
+    root = Path(__file__).resolve().parents[1]
+    csv_path = root / 'db' / csv_name
+    json_output = root / 'static' / 'jsons' / 'goalkeepers' / season
     stats = pd.read_csv(csv_path)
     #check all the values are error free
     stats['MP'] = pd.to_numeric(stats['MP'], errors='coerce')
@@ -52,9 +51,10 @@ def goalkeepers_graph(csv_name):
     )
     #combine both and then convert to json to allow for html
     final_chart_apps = (c1+c2).properties(height=700, width=500)
-    chart_apps_json = final_chart_apps.to_json()
-
+    #save graph
+    final_chart_apps.save(str(json_output / 'apps.json'))
     """Cards Chart"""
+
 
     #returns data frame with only player and cards values
     cards_stats = keeper_stats[['Player','CrdY', 'CrdR']].copy()
@@ -92,7 +92,8 @@ def goalkeepers_graph(csv_name):
             alt.Tooltip('Cards:Q', title='Cards')
         ]
     ).properties(height=700, width=500)
-    chart_cards_json = chart_cards.to_json()
+    #save graph
+    chart_cards.save(str(json_output / 'cards.json'))
 
     """Conceded Graph"""
 
@@ -150,7 +151,9 @@ def goalkeepers_graph(csv_name):
     )
     #combine both y axes
     chart_gc = alt.layer(bar_gc, line_gc).resolve_scale(y="independent")
-    chart_gc_json = chart_gc.to_json()
+    #save graph
+    chart_gc.save(str(json_output / 'conceded.json'))
+
 
     """Saves Chart"""
 
@@ -203,7 +206,8 @@ def goalkeepers_graph(csv_name):
     ).properties(height=700, width=500)
     #combines both y-axes
     chart_ks = alt.layer(bar_ks, line_ks).resolve_scale(y="independent")
-    chart_ks_json = chart_ks.to_json()
+    #save graph
+    chart_ks.save(str(json_output / 'saves.json'))
 
     """Clean Sheet Graph"""
 
@@ -251,6 +255,8 @@ def goalkeepers_graph(csv_name):
     ).properties(height=700, width=500)
     #combine the two y axes
     graph_cs = alt.layer(bar_cs, line_cs).resolve_scale(y="independent")
-    graph_cs_json = graph_cs.to_json()
-    #return all the graphs
-    return chart_apps_json, chart_cards_json,chart_gc_json,chart_ks_json,graph_cs_json
+    #save graph
+    graph_cs.save(str(json_output / 'clean.json'))
+
+goalkeepers_graph('goalkeeper_data.csv','2526')
+goalkeepers_graph('goalkeeper_data2425.csv','2425')

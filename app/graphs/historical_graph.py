@@ -7,10 +7,12 @@ import os
 import altair as alt
 import pandas as pd
 from flask import current_app
-
+from pathlib import Path
 def historical_graph():
     #find position database and create a pd Frame
-    csv_path = os.path.join(current_app.root_path, 'db', 'historical_positions.csv')
+    root = Path(__file__).resolve().parents[1]
+    csv_path = root / 'db' / 'historical_positions.csv'
+    json_output = root / 'static' / 'jsons' / 'historical'
     stats = pd.read_csv(csv_path)
     #check goal values are error free
     stats['Goals'] = pd.to_numeric(stats['Goals'],errors='coerce')
@@ -72,7 +74,7 @@ def historical_graph():
         width=1000
     )
     position_chart = prem_area + champ_area + L1_area + L2_area + position_chart
-    position_chart_json = position_chart.to_json()
+    position_chart.save(str(json_output / 'position.json'))
 
     """Top Scorer Chart"""
 
@@ -99,7 +101,6 @@ def historical_graph():
         color=alt.value('black')
     ).properties(height=500,width=1000)
     tgs_chart = tgs_bar + tgs_text
-    tgs_chart_json = tgs_chart.to_json()
-    return position_chart_json, tgs_chart_json
+    tgs_chart.save(str(json_output / 'topscorer.json'))
 
-
+historical_graph()

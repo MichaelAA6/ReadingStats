@@ -32,18 +32,12 @@
 <div id="map-chart"></div>
 
     <script type="text/javascript">
-      const spec = {{ graph | safe }}
-      vegaEmbed('#altair-chart', spec);
-      const goalSpec = {{goal_graph | safe}}
-      vegaEmbed('#goal-chart',goalSpec)
-      const resultSpec = {{result_graph | safe}}
-      vegaEmbed('#result-chart',resultSpec)
-      const possSpec = {{poss_graph | safe}}
-      vegaEmbed('#poss-chart',possSpec)
-      const attendSpec = {{attend_graph | safe}}
-      vegaEmbed('#attend-chart',attendSpec)
-      const mapSpec = {{map_graph | safe}}
-      vegaEmbed('#map-chart',mapSpec)
+      vegaEmbed('#altair-chart', "{{ url_for('static', filename='jsons/home/' ~ season ~ '/scorers.json') }}" );
+      vegaEmbed('#goal-chart',"{{ url_for('static', filename='jsons/home/' ~ season ~ '/goals.json') }}")
+      vegaEmbed('#result-chart',"{{ url_for('static', filename='jsons/home/' ~ season ~ '/results.json') }}")
+      vegaEmbed('#poss-chart',"{{ url_for('static', filename='jsons/home/' ~ season ~ '/poss.json') }}")
+      vegaEmbed('#attend-chart',"{{ url_for('static', filename='jsons/home/' ~ season ~ '/attend.json') }}")
+      vegaEmbed('#map-chart',"{{ url_for('static', filename='jsons/home/' ~ season ~ '/map.json') }}")
 
     </script>
 {% endblock %}

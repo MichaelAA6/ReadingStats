@@ -23,16 +23,11 @@
 <h2> Offsides</h2>
 <div id="offside-chart"></div>
 <script type="text/javascript">
-      const appsSpec = {{ apps_graph | safe }}
-      vegaEmbed('#apps-chart', appsSpec)
-      const gaSpec = {{ ga_graph | safe }}
-      vegaEmbed('#ga-chart', gaSpec);
-      const shotsSpec = {{ shots_graph | safe}}
-      vegaEmbed('#shots-chart',shotsSpec)
-      const cardSpec = {{card_graph | safe}}
-      vegaEmbed('#card-chart',cardSpec)
-      const offsideSpec = {{offside_graph | safe}}
-      vegaEmbed('#offside-chart',offsideSpec)
+      vegaEmbed('#apps-chart',"{{ url_for('static', filename='jsons/forwards/' ~ season ~ '/apps.json') }}" )
+      vegaEmbed('#ga-chart',"{{ url_for('static', filename='jsons/forwards/' ~ season ~ '/ga.json') }}" );
+      vegaEmbed('#shots-chart',"{{ url_for('static', filename='jsons/forwards/' ~ season ~ '/shots.json') }}")
+      vegaEmbed('#card-chart',"{{ url_for('static', filename='jsons/forwards/' ~ season ~ '/cards.json') }}")
+      vegaEmbed('#offside-chart',"{{ url_for('static', filename='jsons/forwards/' ~ season ~ '/off.json') }}")
     </script>
 
 {% endblock %}

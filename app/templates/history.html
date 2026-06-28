@@ -8,9 +8,7 @@
 <h2>Top Goal Scorers</h2>
 <div id="tgs-chart"></div>
 <script type="text/javascript">
-      const posSpec = {{ position_graph | safe }}
-      vegaEmbed('#pos-chart', posSpec);
-      const tgsSpec = {{ tgs_graph | safe }}
-      vegaEmbed('#tgs-chart',tgsSpec)
+      vegaEmbed('#pos-chart',"{{ url_for('static', filename='jsons/historical/position.json') }}" );
+      vegaEmbed('#tgs-chart',"{{ url_for('static', filename='jsons/historical/topscorer.json') }}")
 </script>
 {% endblock %}
