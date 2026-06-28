@@ -31,13 +31,10 @@ def goalkeepers_2425season():
     return render_template('goalkeepers.html',season='2425')
 @main.route('/defenders')
 def defenders():
-    #creates and returns defenders graph
-    apps_graph, ga_graph,card_graph,defence_graph = defenders_graph('player_data.csv')
-    return render_template('defenders.html',apps_graph=apps_graph,ga_graph=ga_graph,card_graph=card_graph,defence_graph=defence_graph)
+    return render_template('defenders.html',season='2526')
 @main.route('/defenders/2425season')
 def defenders_2425season():
-    apps_graph, ga_graph, card_graph, defence_graph = defenders_graph('player_data2425.csv')
-    return render_template('defenders.html', apps_graph=apps_graph, ga_graph=ga_graph, card_graph=card_graph,defence_graph=defence_graph)
+    return render_template('defenders.html',season='2425' )
 @main.route('/midfielders')
 def midfielders():
     #creates and returns midfielders graph

@@ -10,10 +10,13 @@ import altair as alt
 import numpy as np
 import pandas as pd
 from flask import current_app
+from pathlib import Path
 
-def defenders_graph(csv_name):
+def defenders_graph(csv_name,season):
     #find the players database and create a pd Frame
-    csv_path = os.path.join(current_app.root_path,'db', csv_name)
+    root = Path(__file__).resolve().parents[1]
+    csv_path = root / 'db' / csv_name
+    json_output = root / 'static' / 'jsons' / 'defenders' / season
     stats = pd.read_csv(csv_path)
     #check all the values are error free
     stats['MP'] = pd.to_numeric(stats['MP'], errors='coerce')
@@ -56,7 +59,7 @@ def defenders_graph(csv_name):
     )
     #combine the graphs
     final_chart_apps = (c1 + c2).properties(height=700, width=500)
-    chart_apps_json = final_chart_apps.to_json()
+    final_chart_apps.save(str(json_output / 'apps.json'))
 
     """Goals and Assist Chart"""
 
@@ -112,7 +115,7 @@ def defenders_graph(csv_name):
     )
     #combine the charts
     chart_ga = alt.layer(bar_ga, line_ga).resolve_scale(y="independent").properties(width=1000,height=500)
-    chart_ga_json = chart_ga.to_json()
+    chart_ga.save(str(json_output / 'ga.json'))
 
     """Cards Chart"""
 
@@ -152,7 +155,7 @@ def defenders_graph(csv_name):
             alt.Tooltip('Cards:Q', title='Cards')
         ]
     ).properties(height=700, width=500)
-    chart_cards_json = chart_cards.to_json()
+    chart_cards.save(str(json_output / 'cards.json'))
 
     """Defensive Performance Chart"""
 
@@ -247,5 +250,7 @@ def defenders_graph(csv_name):
     )
     #add all the areas and the graph
     defence_chart = (LILT_area + HILT_area + LIHT_area + HIHT_area + defence_chart).properties(width=1000, height=1000)
-    defence_chart_json = defence_chart.to_json()
-    return chart_apps_json,chart_ga_json,chart_cards_json,defence_chart_json
+    defence_chart.save(str(json_output / 'defence.json'))
+
+defenders_graph('player_data.csv','2526')
+defenders_graph('player_data2425.csv','2425')

@@ -20,14 +20,10 @@
 <h2> Defensive</h2>
 <div id="def-chart"></div>
 <script type="text/javascript">
-      const appsSpec = {{ apps_graph | safe }}
-      vegaEmbed('#apps-chart', appsSpec);
-      const gaSpec = {{ ga_graph | safe }}
-      vegaEmbed('#ga-chart', gaSpec);
-      const cardSpec = {{card_graph | safe}}
-      vegaEmbed('#card-chart',cardSpec)
-      const defSpec = {{defence_graph | safe}}
-      vegaEmbed('#def-chart',defSpec)
+      vegaEmbed('#apps-chart',"{{ url_for('static', filename='jsons/defenders/' ~ season ~ '/apps.json') }}" );
+      vegaEmbed('#ga-chart',"{{ url_for('static', filename='jsons/defenders/' ~ season ~ '/ga.json') }}" );
+      vegaEmbed('#card-chart',"{{ url_for('static', filename='jsons/defenders/' ~ season ~ '/cards.json') }}")
+      vegaEmbed('#def-chart',"{{ url_for('static', filename='jsons/defenders/' ~ season ~ '/defence.json') }}")
     </script>
 
 {% endblock %}
