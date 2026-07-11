@@ -62,6 +62,41 @@
   </div>
 </div>
 
+<div class="post-box">
+  <div class="post-header">
+    <h2>Jacob Brown Welcome Post</h2>
+    <h2>05/07/2026</h2>
+  </div>
+    <div class="post-text">
+        <h3>Here is a look at most recent signing Jacob Brown,
+            compared with his new teammate Jack Marriott and Derby Striker Lars-Jørgen Salvesen.
+            (We will be comparing their per 90 stats due to Jacob Browns limited playing time last season).
+        </h3>
+        <h3>Looking at the graph below we can see that Jacob lacks behind getting shots off on target per 90,
+            but is similar to Lars when it comes to getting headed shots, while also boasting a similar expected goals per 90 to Jack.</h3>
+  </div>
+    <div id="jacob_brown_welcome1"></div>
+    <div class="post-text">
+        <h3>Looking at their chances created, we can see Jacob is close to both other players,
+            showing that he is just as capable as generating chances as other players.</h3>
+    </div>
+    <div id="jacob_brown_welcome2"></div>
+    <div class="post-text">
+        <h3>Finally, we can see that Jacob is in between the players when it comes to winning both ground and aerial duels.
+            The aerial duels stat feels unfair due to Lars's height advantage,
+            but the standard duels still shows that Jacob is more confident at winning the ball then Jack.</h3>
+    </div>
+    <div id="jacob_brown_welcome3"></div>
+    <div class="post-text">
+        <h3>Overall, I think Jacob provides great competition with Jack Marriot for the striker position.
+            Even though Jacob has struggled in recent seasons,
+            hopefully he can show off his skill in League 1 with consistent playing time and a system that suits him.</h3>
+    </div>
+</div>
+
+
+
+
 <script type="text/javascript">
   vegaEmbed('#kyr_lisbie_welcome1',"{{ url_for('static', filename='jsons/players/KL/kyr_lisbie_welcome1.json') }}");
   vegaEmbed('#kyr_lisbie_welcome2',"{{ url_for('static', filename='jsons/players/KL/kyr_lisbie_welcome2.json') }}")
@@ -70,5 +105,8 @@
   vegaEmbed('#udoka_maflie_welcome1',"{{ url_for('static', filename='jsons/players/UM/udoka_maflie_welcome1.json') }}")
   vegaEmbed('#udoka_maflie_welcome2',"{{ url_for('static', filename='jsons/players/UM/udoka_maflie_welcome2.json') }}")
   vegaEmbed('#udoka_maflie_welcome3',"{{ url_for('static', filename='jsons/players/UM/udoka_maflie_welcome3.json') }}")
+  vegaEmbed('#jacob_brown_welcome1',"{{ url_for('static', filename='jsons/players/JB/jacob_brown_welcome1.json') }}")
+  vegaEmbed('#jacob_brown_welcome2',"{{ url_for('static', filename='jsons/players/JB/jacob_brown_welcome2.json') }}")
+  vegaEmbed('#jacob_brown_welcome3',"{{ url_for('static', filename='jsons/players/JB/jacob_brown_welcome3.json') }}")
 </script>
 {% endblock %}
