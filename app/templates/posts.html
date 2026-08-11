@@ -62,10 +62,6 @@
   </div>
 </div>
 
-
-
-
-
 <div class="post-box">
     <div class="post-header">
         <h2>Josh Stokes</h2>
@@ -129,7 +125,34 @@
     </div>
 </div>
 
-
+<div class="post-box">
+  <div class="post-header">
+    <h2>Reading FC v Bromley </h2>
+    <h2>11/08/2026</h2>
+  </div>
+    <div class="post-text">
+        <h3>Here is my review of #readingfc v Bromley</h3>
+        <h3>When looking at our attacking stats, we can see we just edge them in our shots,
+            while also getting into the box more then Bromley.
+            Its also worth noting that we had a better xG, 2.39 to Bromley's 1.67.</h3>
+  </div>
+    <div id="eflcup_bromley1"></div>
+    <div class="post-text">
+        <h3>We can see defensively we were much poorer, only beating them on blocks and clearances.
+            This is poor, as it only shows we weren't stopping the attacks and were unable to keep possession,
+            we want to have higher tackles and interceptions.</h3>
+    </div>
+    <div id="eflcup_bromley2"></div>
+    <div class="post-text">
+        <h3>When looking at our passing stats, we can see that we did have a higher passing accuracy in both short and long balls, while being slightly less in crossing.
+            The short pass rate isn't great, as it should be in the 80's, but the long and crossing is in the right area.</h3>
+    </div>
+    <div id="eflcup_bromley3"></div>
+    <div class="post-text">
+        <h3>Overall, the stats do say reading fc were the slightly better team, with the only problem being our defence being caught out a couple of times,
+            which is a problem with sitting deep, as it means the attackers have less distance to goal if they get the ball. Attacking we were good.</h3>
+    </div>
+</div>
 
 
 <script type="text/javascript">
@@ -143,9 +166,13 @@
   vegaEmbed('#josh_stokes_welcome1',"{{ url_for('static', filename='jsons/players/JS/josh_stokes_welcome1.json') }}")
   vegaEmbed('#josh_stokes_welcome2',"{{ url_for('static', filename='jsons/players/JS/josh_stokes_welcome2.json') }}")
   vegaEmbed('#josh_stokes_welcome3',"{{ url_for('static', filename='jsons/players/JS/josh_stokes_welcome3.json') }}")
-
   vegaEmbed('#jacob_brown_welcome1',"{{ url_for('static', filename='jsons/players/JB/jacob_brown_welcome1.json') }}")
   vegaEmbed('#jacob_brown_welcome2',"{{ url_for('static', filename='jsons/players/JB/jacob_brown_welcome2.json') }}")
   vegaEmbed('#jacob_brown_welcome3',"{{ url_for('static', filename='jsons/players/JB/jacob_brown_welcome3.json') }}")
+  vegaEmbed('#jacob_brown_welcome3',"{{ url_for('static', filename='jsons/players/JB/jacob_brown_welcome3.json') }}")
+  vegaEmbed('#jacob_brown_welcome3',"{{ url_for('static', filename='jsons/players/JB/jacob_brown_welcome3.json') }}")
+  vegaEmbed('#eflcup_bromley1',"{{ url_for('static', filename='jsons/matches/2627/eflcup_bromley1.json') }}")
+  vegaEmbed('#eflcup_bromley2',"{{ url_for('static', filename='jsons/matches/2627/eflcup_bromley2.json') }}")
+  vegaEmbed('#eflcup_bromley3',"{{ url_for('static', filename='jsons/matches/2627/eflcup_bromley3.json') }}")
 </script>
 {% endblock %}
