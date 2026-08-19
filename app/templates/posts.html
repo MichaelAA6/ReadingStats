@@ -157,7 +157,7 @@
 <div class="post-box">
   <div class="post-header">
     <h2>Reading FC v Luton </h2>
-    <h2>11/08/2026</h2>
+    <h2>16/08/2026</h2>
   </div>
     <div class="post-text">
         <h3>Here is my review of #readingfc v Luton</h3>
@@ -165,22 +165,53 @@
             We also just edged them out on xG, 1.77 to 1.60.
             Its good that we were matching a high quality opposition, and shows how our attack was decent.</h3>
   </div>
-    <div id="L1-_luton_h1"></div>
+    <div id="L1_luton_h1"></div>
     <div class="post-text">
         <h3>Defensively we were off it,  which could be seen on the pitch and in the stats.
             Interceptions were up on Bromley which was good,
             but only 1 block and 11 tackles showed how we lacked stopping attacks or shots</h3>
     </div>
-    <div id="L1-_luton_h2"></div>
+    <div id="L1_luton_h2"></div>
     <div class="post-text">
         <h3>Looking at the passing, its disappointing to see our passing and crossing percentage drop from Bromley,
             and being worse off then Luton. We did get an impressive long ball percentage,
             which is good for our tactics of getting the ball up quickly, and can be seen in two of our goals.</h3>
     </div>
-    <div id="L1-_luton_h3"></div>
+    <div id="L1_luton_h3"></div>
     <div class="post-text">
         <h3>Overall, We were decent going forward, but lacked in our defensive contributions and passing,
         going backwards from the Bromley game.</h3>
+    </div>
+</div>
+
+<div class="post-box">
+  <div class="post-header">
+    <h2>Reading FC v Wycombe </h2>
+    <h2>11/08/2026</h2>
+  </div>
+    <div class="post-text">
+        <h3>Here is my review of #readingfc v Wycombe</h3>
+        <h3>Looking at the attacking stats, we matched Wycombe overall.
+            We got a decent number of shots off and got in the box a decent amount of times.
+            This is also similar to the Luton game stats..</h3>
+  </div>
+    <div id="efltrophy_wycombe1"></div>
+    <div class="post-text">
+        <h3>We were also defensively quite even with Wycombe.
+            We did improve upon the Luton games, getting in more defensive contributions,
+            hopefully suggesting the Leam has got into the players heads about stopping the attackers earlier.</h3>
+    </div>
+    <div id="efltrophy_wycombe2"></div>
+    <div class="post-text">
+        <h3>Looking at the passing, we did fall behind Wycombe, who had a really good overall passing completion rate.
+            Our stats were not horrible, with the passing being better then the Luton game and similar to the Bromley,
+            but we need our Long Balls and Crosses to be up.</h3>
+    </div>
+    <div id="efltrophy_wycombe3"></div>
+    <div class="post-text">
+        <h3>Overall, it was a very even affair against Wycombe, both sides putting up equal stats,
+            with Reading eventually coming up on top on Penalties. An improvement on the Luton game,
+            and a good performance from some of the reserves and youngsters.</h3>
     </div>
 </div>
 
@@ -203,8 +234,11 @@
   vegaEmbed('#eflcup_bromley1',"{{ url_for('static', filename='jsons/matches/2627/eflcup_bromley1.json') }}")
   vegaEmbed('#eflcup_bromley2',"{{ url_for('static', filename='jsons/matches/2627/eflcup_bromley2.json') }}")
   vegaEmbed('#eflcup_bromley3',"{{ url_for('static', filename='jsons/matches/2627/eflcup_bromley3.json') }}")
-  vegaEmbed('#L1-_luton_h1',"{{ url_for('static', filename='jsons/matches/2627/Luton/L1_luton_h_1.json') }}")
-  vegaEmbed('#L1-_luton_h2',"{{ url_for('static', filename='jsons/matches/2627/Luton/L1_luton_h_2.json') }}")
-  vegaEmbed('#L1-_luton_h3',"{{ url_for('static', filename='jsons/matches/2627/Luton/L1_luton_h_3.json') }}")
+  vegaEmbed('#L1_luton_h1',"{{ url_for('static', filename='jsons/matches/2627/Luton/L1_luton_h_1.json') }}")
+  vegaEmbed('#L1_luton_h2',"{{ url_for('static', filename='jsons/matches/2627/Luton/L1_luton_h_2.json') }}")
+  vegaEmbed('#L1_luton_h3',"{{ url_for('static', filename='jsons/matches/2627/Luton/L1_luton_h_3.json') }}")
+  vegaEmbed('#efltrophy_wycombe1',"{{ url_for('static', filename='jsons/matches/2627/Wycombe/efltrophy_wycombe1.json') }}")
+  vegaEmbed('#efltrophy_wycombe2',"{{ url_for('static', filename='jsons/matches/2627/Wycombe/efltrophy_wycombe2.json') }}")
+  vegaEmbed('#efltrophy_wycombe3',"{{ url_for('static', filename='jsons/matches/2627/Wycombe/efltrophy_wycombe3.json') }}")
 </script>
 {% endblock %}
