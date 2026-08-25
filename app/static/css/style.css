@@ -94,3 +94,20 @@ hr{
 .post-text{
     text-align: left;
 }
+#pagination{
+    display: flex;
+    justify-content: center;
+}
+#back-btn{
+    padding: 2px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+#page-number{
+    font-weight: bold;
+}
+#next-btn{
+    padding: 2px;
+    margin-left: 10px;
+    cursor: pointer;
+}
