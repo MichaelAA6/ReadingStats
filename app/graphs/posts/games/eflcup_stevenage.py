@@ -1,0 +1,125 @@
+import altair as alt
+import pandas as pd
+from pathlib import Path
+
+
+root = Path(__file__).resolve().parents[4]
+
+data = [
+    ["Team","Shots","Shots On Target","Touches in Opposition Box","Tackles","Interceptions","Blocks","Clearances","Pass%","LongBall%","Cross%"],
+    ["Reading",10,5,19,6,12,5,27,78,38,22],
+    ["Stevenage",13,5,20,5,8,2,29,85,49,33]
+]
+png_path1 = root / 'images' / 'eflcup_stevenage1.png'
+json_path1 = root / 'app' / 'static' / 'jsons' / 'matches' / '2627' / 'eflcup_stevenage1.json'
+png_path2 = root / 'images' / 'eflcup_stevenage2.png'
+json_path2 = root / 'app' / 'static' / 'jsons' / 'matches' / '2627' / 'eflcup_stevenage2.json'
+png_path3 = root / 'images' / 'eflcup_stevenage3.png'
+json_path3 = root / 'app' / 'static' / 'jsons' / 'matches' / '2627' / 'eflcup_stevenage3.json'
+df = pd.DataFrame(data[1:],columns=data[0])
+
+attacking_stats = df.melt(
+    id_vars=["Team"],
+    value_vars=["Shots","Shots On Target","Touches in Opposition Box"],
+    var_name="Attacking",
+    value_name="Count",
+)
+
+attack_chart = alt.Chart(attacking_stats).mark_bar().encode(
+    x = alt.X('Team',sort=['Reading']),
+    y = alt.Y('sum(Count):Q',title="Attacking Stats"),
+    xOffset= 'Attacking',
+    color=alt.Color('Attacking:N',
+                    scale=alt.Scale(
+                        domain=['Shots','Shots On Target','Touches in Opposition Box'],
+                        range=["#0a7d14","#1609d6","#c72614"]
+                    )),
+    tooltip=[
+        alt.Tooltip("Team:N",title="Team"),
+        alt.Tooltip("Attacking:N",title="Attacking"),
+        alt.Tooltip("Count:Q",title="Count"),
+    ],
+)
+
+attack_text = attack_chart.mark_text(
+    align="center",
+    dy= -10,
+    size= 17,
+).encode(
+    y=alt.Y('sum(Count):Q'),
+    text=alt.Text('sum(Count):Q')
+)
+
+attack_chart = (attack_chart + attack_text).properties(width=500, height=800)
+attack_chart.save(png_path1,scale_factor=2)
+attack_chart.save(json_path1)
+
+defending_stats = df.melt(
+    id_vars=["Team"],
+    value_vars=["Tackles","Interceptions","Blocks","Clearances"],
+    var_name="Defending",
+    value_name="Count",
+)
+
+defending_chart = alt.Chart(defending_stats).mark_bar().encode(
+    x = alt.X('Team',sort=['Reading']),
+    y = alt.Y('sum(Count):Q',title="Defending Stats"),
+    xOffset= 'Defending',
+    color=alt.Color('Defending:N',
+                    scale=alt.Scale(
+                        domain=['Tackles','Interceptions','Blocks','Clearances'],
+                        range=["#0a7d14","#1609d6","#c72614","#f0f000"]
+                    )),
+    tooltip=[
+        alt.Tooltip("Team:N",title="Team"),
+        alt.Tooltip("Defending:N",title="Defending"),
+        alt.Tooltip("Count:Q",title="Count"),
+    ]
+)
+
+defending_text = defending_chart.mark_text(
+    align="center",
+    dy= -10,
+    size= 17,
+).encode(
+    y=alt.Y('sum(Count):Q'),
+    text=alt.Text('sum(Count):Q')
+)
+defending_chart = (defending_chart + defending_text).properties(width=500, height=800)
+defending_chart.save(png_path2,scale_factor=2)
+defending_chart.save(json_path2)
+
+passing_stats = df.melt(
+    id_vars=["Team"],
+    value_vars=["Pass%","LongBall%","Cross%"],
+    var_name="Passing",
+    value_name="Count",
+)
+
+passing_chart = alt.Chart(passing_stats).mark_bar().encode(
+    x = alt.X('Team',sort=['Reading']),
+    y = alt.Y('sum(Count):Q',title="Passing Stats"),
+    xOffset= 'Passing',
+    color=alt.Color('Passing:N',
+                    scale=alt.Scale(
+                        domain=["Pass%","LongBall%","Cross%"],
+                        range=["#0a7d14","#1609d6","#c72614"]
+                    )),
+    tooltip=[
+        alt.Tooltip("Team:N",title="Team"),
+        alt.Tooltip("Passing:N",title="Passing"),
+        alt.Tooltip("Count:Q",title="Count"),
+    ]
+)
+
+passing_text = passing_chart.mark_text(
+    align="center",
+    dy= -10,
+    size= 17,
+).encode(
+    y=alt.Y('sum(Count):Q'),
+    text=alt.Text('sum(Count):Q')
+)
+passing_chart = (passing_chart + passing_text).properties(width=500, height=800)
+passing_chart.save(png_path3,scale_factor=2)
+passing_chart.save(json_path3)
