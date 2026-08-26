@@ -285,7 +285,43 @@
                 the players just needed to be more clinical.</h3>
         </div>
     </div>
+
+    <div class="post-box">
+      <div class="post-header">
+        <h2>Welcome Conor Masterson</h2>
+        <h2>26/08/2026</h2>
+      </div>
+        <div class="post-text">
+            <h3>Here is my review of #readingfc newest player, Conor Masterson.
+                I will compare him to Omar Beckles, Gillingham CB with similar minutes, and Ben Ward,
+                compared to his first half in League 2 with Accrington.</h3>
+            <h3>Looking at their passing stats, we can see that Masterson is much more confident on the ball playing it short,
+                with around 15% more accurate passing rate then either player. He also has a good long ball percentage,
+                showing he can also play accurate long balls.</h3>
+        </div>
+        <div id="con_masterson_welcome1"></div>
+        <div class="post-text">
+            <h3>Looking at the duels, we can see that Masterson is around 10% down on the others when it comes to both
+                ground and aerial duels. This isn't great that he isn't winning as many duels,
+                but being above 50% does mean he wins the majority of duels.</h3>
+        </div>
+        <div id="con_masterson_welcome2"></div>
+        <div class="post-text">
+            <h3>Looking at there defensive stats per 90, we can see also that Masterson falls behind in the
+                stats compared to the other players. It is concerning seeing him get so few tackles and interceptions</h3>
+        </div>
+        <div id="con_masterson_welcome3"></div>
+        <div class="post-text">
+            <h3>Overall, I think the signing is okay. I'm not going to say Masterson will change our season,
+                but I do think he is a sensible choice for a back up CB.
+                I would like to see another CB to come in who is more likely to push for a starting XI spot. </h3>
+        </div>
+    </div>
 </div>
+
+
+
+
 <div id="pagination">
     <button id="back-btn">Back</button>
     <span id="page-number">Page 1</span>
@@ -320,6 +356,9 @@
   vegaEmbed('#L1_wimbledon_a_1',"{{ url_for('static', filename='jsons/matches/2627/Wimbledon/L1_wimbledon_a_1.json') }}")
   vegaEmbed('#L1_wimbledon_a_2',"{{ url_for('static', filename='jsons/matches/2627/Wimbledon/L1_wimbledon_a_2.json') }}")
   vegaEmbed('#L1_wimbledon_a_3',"{{ url_for('static', filename='jsons/matches/2627/Wimbledon/L1_wimbledon_a_3.json') }}")
+  vegaEmbed('#con_masterson_welcome1',"{{ url_for('static', filename='jsons/players/CM/con_masterson_welcome1.json') }}")
+  vegaEmbed('#con_masterson_welcome2',"{{ url_for('static', filename='jsons/players/CM/con_masterson_welcome2.json') }}")
+  vegaEmbed('#con_masterson_welcome3',"{{ url_for('static', filename='jsons/players/CM/con_masterson_welcome3.json') }}")
 
   /*Sets the number of Posts per "page" and also set the current page to 1*/
   const POSTS_PER_PAGE = 5;
