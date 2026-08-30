@@ -352,6 +352,81 @@
         </div>
     </div>
 
+        <div class="post-box">
+      <div class="post-header">
+        <h2>Stevenage v Reading </h2>
+        <h2>26/08/2026</h2>
+      </div>
+        <div class="post-text">
+            <h3>Here is my review of Reading FC in August</h3>
+            <h3>Now moving onto our stats, first we will look at our possession per game.
+            Looking at this, we can see there is no clear pattern, with games varying from 60% to 40%,
+                averaging 51%. While we do not maintain a consistent possession,
+                we can see how patterns emerge when looking at our opponents and the game stats.
+            For example, in the Bromley game, we have a high percentage due to the fact
+                Bromley are more defensive, and also went a man down with 11 minutes left.
+            The same can be said about wimbldeon, where they set up deeper and more defensive,
+                allowing our players to have more time on the ball in our own half.
+            This can be seen in the Stevenage game, where after we scored,
+                we went more defensive to keep our lead. This worked well, as it meant we were more secure,
+                and allowed us to counter more effectively.
+            The same cant be said about the luton game,
+                where after scoring we went more defensive, we were unable to hold off their superior attack,
+                and were also unable to get back into the game
+            This does show off the versatility of our counter attacking football,
+                being able to play it with both more and less possession
+            </h3>
+      </div>
+        <div id="possession_august"></div>
+        <div class="post-text">
+            <h3>Moving on, we now compare our Goals scored vs our Expected Goals.
+                We can see that our avg goals and our avg xG is the practically the same,
+                with both being 1.6 per game.
+                This is a very good thing to have our goals and xg be the same,
+                as it means we are scoring at the same rate we are producing chances.
+                It is better then producing less goals then xG,
+                as that would mean we are likely missing our chances and failing to convert.
+                Producing more Goals then xG might be good as it might suggest we are very clinical,
+                but it could also mean we are getting lucky with our shots, and might not be sustainable.
+                So having the same Goals to xG is a good indicator we are attacking well.
+                We of course want this to be as high as possible, but 1.6 is still very good.
+            </h3>
+        </div>
+        <div id="attacking_august"></div>
+        <div class="post-text">
+            <h3>Now moving onto our Conceded goals to vs our expected faced,
+                we can see that our conceded goals are slightly higher then what were expected to concede.
+                This is not a good thing, as it means we are conceding more then we should be ,
+                suggesting that we have not been good defending recently.
+                What we should be aiming for is to be lower then our expected faced,
+                as it means we are stopping the attacks going through.
+                The only positive note is that we are avering more goals for then against,
+                same with xG, suggesting we have be the better side on avg across our games.
+</h3>
+        </div>
+        <div id="defence_august"></div>
+        <div class="post-text">
+            <h3>When looking at our passing averages,
+                its seems we often hover around the same percentages per game.
+                When we compare these stats to our last seasons avg,
+                we avg 75.3% pass completion last season, which means we have improved by 1.5%.
+                Looking at our long balls, we are also up, improving on 32.4%, improving by 2%.
+                When we look at crossing, we are down by a decent amount,
+                were we avg 23.9%, meaning we have decreased by 3.3%.
+                This suggests that we have improved our short and long balls,
+                but we still need to work on getting accurate crosses.
+                I think this is mainly down to us lacking tall options up top to connect with these crosses.
+</h3>
+        </div>
+        <div id="passing_august"></div>
+        <div class="post-text">
+            <h3>If I had to give this month a rating, I would give it a 5/10.
+                I can see the ideas coming together with this team,
+                but it is definitely not the finished product.</h3>
+        </div>
+
+    </div>
+
 </div>
 
 
@@ -397,6 +472,11 @@
   vegaEmbed('#eflcup_stevenage1',"{{ url_for('static', filename='jsons/matches/2627/eflcup_stevenage1.json') }}")
   vegaEmbed('#eflcup_stevenage2',"{{ url_for('static', filename='jsons/matches/2627/eflcup_stevenage2.json') }}")
   vegaEmbed('#eflcup_stevenage3',"{{ url_for('static', filename='jsons/matches/2627/eflcup_stevenage3.json') }}")
+  vegaEmbed('#passing_august',"{{ url_for('static', filename='jsons/monthly/august2026/passing.json') }}")
+  vegaEmbed('#possession_august',"{{ url_for('static', filename='jsons/monthly/august2026/possession.json') }}")
+  vegaEmbed('#attacking_august',"{{ url_for('static', filename='jsons/monthly/august2026/attacking.json') }}")
+  vegaEmbed('#defence_august',"{{ url_for('static', filename='jsons/monthly/august2026/defence.json') }}")
+
 
   /*Sets the number of Posts per "page" and also set the current page to 1*/
   const POSTS_PER_PAGE = 5;
