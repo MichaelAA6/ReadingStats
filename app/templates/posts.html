@@ -354,8 +354,8 @@
 
         <div class="post-box">
       <div class="post-header">
-        <h2>Stevenage v Reading </h2>
-        <h2>26/08/2026</h2>
+        <h2>August Review </h2>
+        <h2>27/08/2026</h2>
       </div>
         <div class="post-text">
             <h3>Here is my review of Reading FC in August</h3>
@@ -427,6 +427,40 @@
 
     </div>
 
+    <div class="post-box">
+      <div class="post-header">
+        <h2>Welcome Josh Knight</h2>
+        <h2>29/08/2026</h2>
+      </div>
+        <div class="post-text">
+            <h3>Here is my review of #readingfc newest player, Josh Knight.
+                I will compare him to one of our other transfer targets, Dan Scarr,
+                and one of his Pompey team mates, Hayden Matthews</h3>
+            <h3>Looking at their passing stats, we can see that Knight falls behind when it comes to passing%,
+                but is higher when it comes to long balls%.
+                This is good for when he needs to play long balls out to our wingers,
+                but he could struggle with our passing it around the back.</h3>
+        </div>
+        <div id="josh_knight_welcome1"></div>
+        <div class="post-text">
+            <h3>Looking at the duels won%, its disappointing that he is behind both other players.
+                I'm especially surprised to see how low his aerial duels wins are,
+                considering he is 6"4. Hopefully he can improve on this during this season. </h3>
+        </div>
+        <div id="josh_knight_welcome2"></div>
+        <div class="post-text">
+            <h3>Looking at his defensive stats, his overall contributions are lower then the others,
+                but his high recoveries is good. I would like to see his interceptions and tackles a bit higher,
+                but is still good for a championship defender who was injured.</h3>
+        </div>
+        <div id="josh_knight_welcome3"></div>
+        <div class="post-text">
+            <h3>Overall, I think this is a sensible signing on loan. He should be good cover if Paudie gets injured,
+                and probably provides a higher quality then we could get for a player on a permanent right now.
+                I would like to see a permanent CB come in maybe in January.</h3>
+        </div>
+    </div>
+
 </div>
 
 
@@ -476,7 +510,9 @@
   vegaEmbed('#possession_august',"{{ url_for('static', filename='jsons/monthly/august2026/possession.json') }}")
   vegaEmbed('#attacking_august',"{{ url_for('static', filename='jsons/monthly/august2026/attacking.json') }}")
   vegaEmbed('#defence_august',"{{ url_for('static', filename='jsons/monthly/august2026/defence.json') }}")
-
+  vegaEmbed('#josh_knight_welcome1',"{{ url_for('static', filename='jsons/players/JK/josh_knight_welcome1.json') }}")
+  vegaEmbed('#josh_knight_welcome2',"{{ url_for('static', filename='jsons/players/JK/josh_knight_welcome2.json') }}")
+  vegaEmbed('#josh_knight_welcome3',"{{ url_for('static', filename='jsons/players/JK/josh_knight_welcome3.json') }}")
 
   /*Sets the number of Posts per "page" and also set the current page to 1*/
   const POSTS_PER_PAGE = 5;
