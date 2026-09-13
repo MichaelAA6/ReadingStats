@@ -2,6 +2,11 @@
 {% block title %}Posts - Reading Stats{% endblock %}
 {% block content %}
 <h1>Posts</h1>
+<div id="pagination">
+    <button id="back-btn">Back</button>
+    <span id="page-number">Page 1</span>
+    <button id="next-btn">Next</button>
+</div>
 <div id="posts-container">
     <div class="post-box">
       <div class="post-header">
@@ -561,16 +566,43 @@
         </div>
     </div>
 
+    <div class="post-box">
+      <div class="post-header">
+        <h2> Reading v Cambridge </h2>
+        <h2>06/09/2026</h2>
+      </div>
+        <div class="post-text">
+            <h3>Here is my review of #readingfc v Cambridge</h3>
+            <h3>Looking at our attacking stats, we can see that we clearly had chances,
+                having a decent number of shots and a major amount of touches in the box,
+                but only 4 on target shows how we weren't clinical. We also produced more xG, 1.41 v 0.74.</h3>
+      </div>
+        <div id="L1_cambridge_a_1"></div>
+        <div class="post-text">
+            <h3>Looking at our defensive stats, we improved on the number of tackles which is good,
+                but the decrease in number of blocks and interceptions is poor.
+                The stats do say we weren't poor defensively,  but rather key mistakes cost us the result.</h3>
+        </div>
+        <div id="L1_cambridge_a_2"></div>
+        <div class="post-text">
+            <h3>Looking at our passing stats,
+                our passing was on par with this seasons avg and our crossing was above our normal this season.
+                Our long ball's were down from this seasons avg.
+                This suggests that they would often sit deep stopping long balls,
+                forcing us to use passes and crosses.</h3>
+        </div>
+        <div id="L1_cambridge_a_3"></div>
+        <div class="post-text">
+            <h3>Overall, it will be one of those games were if we miss out on anything,
+                we will look back at this game and think we should had won this.
+                I think Pereia is unfortunate to get a lot of blame for the goals,
+                as it was more mistakes infront of him that caused us to lose</h3>
+        </div>
+    </div>
+
 </div>
 
 
-
-
-<div id="pagination">
-    <button id="back-btn">Back</button>
-    <span id="page-number">Page 1</span>
-    <button id="next-btn">Next</button>
-</div>
 <script type="text/javascript">
   vegaEmbed('#kyr_lisbie_welcome1',"{{ url_for('static', filename='jsons/players/KL/kyr_lisbie_welcome1.json') }}");
   vegaEmbed('#kyr_lisbie_welcome2',"{{ url_for('static', filename='jsons/players/KL/kyr_lisbie_welcome2.json') }}")
@@ -622,6 +654,9 @@
   vegaEmbed('#L1_blackpool_h_1',"{{ url_for('static', filename='jsons/matches/2627/Blackpool/L1_blackpool_h_1.json') }}")
   vegaEmbed('#L1_blackpool_h_2',"{{ url_for('static', filename='jsons/matches/2627/Blackpool/L1_blackpool_h_2.json') }}")
   vegaEmbed('#L1_blackpool_h_3',"{{ url_for('static', filename='jsons/matches/2627/Blackpool/L1_blackpool_h_3.json') }}")
+  vegaEmbed('#L1_cambridge_a_1',"{{ url_for('static', filename='jsons/matches/2627/Cambridge/L1_cambridge_a_1.json') }}")
+  vegaEmbed('#L1_cambridge_a_2',"{{ url_for('static', filename='jsons/matches/2627/Cambridge/L1_cambridge_a_2.json') }}")
+  vegaEmbed('#L1_cambridge_a_3',"{{ url_for('static', filename='jsons/matches/2627/Cambridge/L1_cambridge_a_3.json') }}")
   /*Sets the number of Posts per "page" and also set the current page to 1*/
   const POSTS_PER_PAGE = 5;
   let current_page = 1;
@@ -648,7 +683,7 @@
           }
       });
       /*Sets Page number to page and also disable buttons if they are at limit, also makes change smooth*/
-      PAGENUMBER.textContent = `${page}`;
+      PAGENUMBER.textContent = `Page ${page}`;
       BACK_BTN.disabled = (page === 1);
       NEXT_BTN.disabled = (page === TOTAL_PAGES);
       document.getElementById('posts-container').scrollIntoView({behavior:'smooth'});
