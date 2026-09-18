@@ -569,7 +569,7 @@
     <div class="post-box">
       <div class="post-header">
         <h2> Reading v Cambridge </h2>
-        <h2>06/09/2026</h2>
+        <h2>13/09/2026</h2>
       </div>
         <div class="post-text">
             <h3>Here is my review of #readingfc v Cambridge</h3>
@@ -597,6 +597,41 @@
                 we will look back at this game and think we should had won this.
                 I think Pereia is unfortunate to get a lot of blame for the goals,
                 as it was more mistakes infront of him that caused us to lose</h3>
+        </div>
+    </div>
+
+
+        <div class="post-box">
+      <div class="post-header">
+        <h2> Reading v Brentford </h2>
+        <h2>17/09/2026</h2>
+      </div>
+        <div class="post-text">
+            <h3>Here is my review of #readingfc v Brentford</h3>
+            <h3>Looking at our attacking stats, they are down compared to other games,
+                but are still very respectable considering we played a premier league side.
+                I think our shots on targets were low due to the fact we shot more from further out,
+                so were more likely to be blocked.</h3>
+      </div>
+        <div id="eflcup_brentford1"></div>
+        <div class="post-text">
+            <h3>Looking at our defensive stats, we could see a big improvement, as we had to defend more.
+                It's nice to see such high Tackles, Interceptions and Blocks,
+                and low clearances, as we often quickly countered rather then booting,
+                as we had little possession otherwise.</h3>
+        </div>
+        <div id="eflcup_brentford2"></div>
+        <div class="post-text">
+            <h3>Looking at our passing stats, it is quite impressive that we maintained such
+                a high percentage of passing against a premier league opposition.
+                73% is only slightly down on our passing, where our long balls and crossing was actually up.</h3>
+        </div>
+        <div id="eflcup_brentford3"></div>
+        <div class="post-text">
+            <h3>Overall, I did not expect us to play so well against Brentford,
+                I was expecting us to play deep long balls and create no threat.
+                Another day and we could had easily drawn that game,
+                and it was nice to see us fighting rather than hoping.</h3>
         </div>
     </div>
 
@@ -657,6 +692,9 @@
   vegaEmbed('#L1_cambridge_a_1',"{{ url_for('static', filename='jsons/matches/2627/Cambridge/L1_cambridge_a_1.json') }}")
   vegaEmbed('#L1_cambridge_a_2',"{{ url_for('static', filename='jsons/matches/2627/Cambridge/L1_cambridge_a_2.json') }}")
   vegaEmbed('#L1_cambridge_a_3',"{{ url_for('static', filename='jsons/matches/2627/Cambridge/L1_cambridge_a_3.json') }}")
+  vegaEmbed('#eflcup_brentford1',"{{ url_for('static', filename='jsons/matches/2627/eflcup_brentford1.json') }}")
+  vegaEmbed('#eflcup_brentford2',"{{ url_for('static', filename='jsons/matches/2627/eflcup_brentford1.json') }}")
+  vegaEmbed('#eflcup_brentford3',"{{ url_for('static', filename='jsons/matches/2627/eflcup_brentford1.json') }}")
   /*Sets the number of Posts per "page" and also set the current page to 1*/
   const POSTS_PER_PAGE = 5;
   let current_page = 1;
