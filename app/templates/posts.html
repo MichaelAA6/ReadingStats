@@ -601,7 +601,7 @@
     </div>
 
 
-        <div class="post-box">
+    <div class="post-box">
       <div class="post-header">
         <h2> Reading v Brentford </h2>
         <h2>17/09/2026</h2>
@@ -632,6 +632,41 @@
                 I was expecting us to play deep long balls and create no threat.
                 Another day and we could had easily drawn that game,
                 and it was nice to see us fighting rather than hoping.</h3>
+        </div>
+    </div>
+
+    <div class="post-box">
+      <div class="post-header">
+        <h2> Reading v Notts County </h2>
+        <h2>17/09/2026</h2>
+      </div>
+        <div class="post-text">
+            <h3>Here is my review of #readingfc v Notts County</h3>
+            <h3>Looking at our attacking stats, we were very impressive across all aspects.
+                It's nice to see our shots on target improve,
+                as in past weeks it felt we were not being clinical enough with our shots.
+                We also dominated on xG, 2.62 v 0.59.</h3>
+      </div>
+        <div id="L1_nottscounty_h_1"></div>
+        <div class="post-text">
+            <h3>Looking at our defensive stats, we were also brilliant.
+                Our tackles and interceptions have been the joint highest this season,
+                which could be seen in the game as we prevented Notts from many attacks.
+                This might be the best defensive display of the season.</h3>
+        </div>
+        <div id="L1_nottscounty_h_2"></div>
+        <div class="post-text">
+            <h3>Looking at our passing stats and once again we look brilliant. Our pass, cross,
+                and long ball% are beyond our average this season. The long ball is the most impressive,
+                being incredible to basically obtain a 50/50 chance with long balls,
+                which is normally around 30%.</h3>
+        </div>
+        <div id="L1_nottscounty_h_3"></div>
+        <div class="post-text">
+            <h3>Overall, its nice to see us continuing to play the same good football week in and out,
+                even after losing our last two.
+                Leam has got us playing entertaining football which is also winning us games,
+                and is far from what he was doing last season.</h3>
         </div>
     </div>
 
@@ -695,6 +730,9 @@
   vegaEmbed('#eflcup_brentford1',"{{ url_for('static', filename='jsons/matches/2627/eflcup_brentford1.json') }}")
   vegaEmbed('#eflcup_brentford2',"{{ url_for('static', filename='jsons/matches/2627/eflcup_brentford1.json') }}")
   vegaEmbed('#eflcup_brentford3',"{{ url_for('static', filename='jsons/matches/2627/eflcup_brentford1.json') }}")
+  vegaEmbed('#L1_nottscounty_h_1',"{{ url_for('static', filename='jsons/matches/2627/NottsCounty/L1_nottscounty_h_1.json') }}")
+  vegaEmbed('#L1_nottscounty_h_2',"{{ url_for('static', filename='jsons/matches/2627/NottsCounty/L1_nottscounty_h_2.json') }}")
+  vegaEmbed('#L1_nottscounty_h_3',"{{ url_for('static', filename='jsons/matches/2627/NottsCounty/L1_nottscounty_h_3.json') }}")
   /*Sets the number of Posts per "page" and also set the current page to 1*/
   const POSTS_PER_PAGE = 5;
   let current_page = 1;
