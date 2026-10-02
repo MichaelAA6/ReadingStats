@@ -39,7 +39,7 @@ possession_stats = df.melt(
 
 #create the bar graph for the possession
 possession_chart = alt.Chart(possession_stats).mark_bar().encode(
-    x=alt.X("Game",axis=alt.Axis(labelFontSize=20,titleFontSize=20),title="Matches",sort=["ID"]),
+    x=alt.X("Game",axis=alt.Axis(labelFontSize=20,titleFontSize=20),scale=alt.Scale(paddingInner=0.3),title="Matches",sort=["ID"]),
     y=alt.Y("sum(Count):Q",axis=alt.Axis(titleFontSize=20),title="Possession",
             scale=alt.Scale(domain=[20,70])),
     color=alt.Color("Type:N",
@@ -93,8 +93,8 @@ season_pos_text = season_pos_line.mark_text(
     text=alt.value(f"Season Avg: {season_pos_avg:.1f}%")
 )
 
-possession_chart = (possession_chart + possession_avg_line +
-                    possession_text + possession_avg_text +
+possession_chart = (
+                    possession_text + possession_avg_text + possession_chart + possession_avg_line +
                     season_pos_line + season_pos_text).properties(width=1000,height=600)
 possession_chart.save(png_path1,scale_factor=2.0)
 possession_chart.save(json_path1)
