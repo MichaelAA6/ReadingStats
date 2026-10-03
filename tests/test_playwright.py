@@ -15,6 +15,13 @@ def test_run(playwright: Playwright) -> None:
     #chcek graph appears and is there
     expect(page.locator("#altair-chart canvas")).to_be_visible()
     page.locator("#altair-chart canvas").click(position={"x":20,"y":90})
+    #got to the posts page and check that the title is there
+    page.get_by_role("link",name="Posts").click()
+    expect(page.locator("H1")).to_contain_text("Posts")
+    #test that the next button works to click and move onto the next page
+    expect(page.locator("#page-number")).to_contain_text("Page 1")
+    page.get_by_role("button", name="Next").click()
+    expect(page.locator("#page-number")).to_contain_text("Page 2")
     #go through the pages and make sure they appear properly
     page.get_by_role("link", name="Goalkeepers").click()
     expect(page.locator("h1")).to_contain_text("Goalkeepers")
@@ -27,5 +34,6 @@ def test_run(playwright: Playwright) -> None:
     page.get_by_role("link", name="/25 Season").click()
     page.get_by_role("link", name="History").click()
     expect(page.locator("h1")).to_contain_text("Historical Statistics")
+    #close the test
     context.close()
     browser.close()
