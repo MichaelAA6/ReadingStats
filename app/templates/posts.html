@@ -776,6 +776,38 @@
 
     </div>
 
+    <div class="post-box">
+      <div class="post-header">
+        <h2> Reading v Bradford City </h2>
+        <h2>04/10/2026</h2>
+      </div>
+        <div class="post-text">
+            <h3>Here is my review of Reading FC v Bradford City</h3>
+            <h3>Looking at our attacking stats, we can see that we struggled to get both shots and shots on target this game.
+                I think this shows how both teams were better defending then attacking,
+                with fewer then normal shots even with higher touches in box, and a low xG, 0.67 v 0. 85.</h3>
+      </div>
+        <div id="L1_bradford_h_1"></div>
+        <div class="post-text">
+            <h3>Looking at the duels rather then the defensive stats,
+                we can see that we were better winning the ball on the ground then in the air.
+                I think this is down to Bradford being made up of very tall players,
+                who can win most duels in the air, but struggle more with it on the ground.</h3>
+        </div>
+        <div id="L1_bradford_h_2"></div>
+        <div class="post-text">
+            <h3>Looking at our passing this game we managed a decent percentage in each area.
+                Each of them are above our average this season, and is probably the best part of our game.
+                We can also see that Bradford struggle with their passing, as the try to create great chances with risky balls.</h3>
+        </div>
+        <div id="L1_bradford_h_3"></div>
+        <div class="post-text">
+            <h3>Overall, I think it an alright result for Reading FC,
+                as Bradford are one of those teams who are hard to breakdown and difficult to come back if they score first.
+                If we still want to be pushing for the playoff however, we need to improve.</h3>
+        </div>
+    </div>
+
 
 </div>
 
@@ -849,8 +881,11 @@
   vegaEmbed('#passing_september',"{{ url_for('static', filename='jsons/monthly/september2026/passing.json') }}")
   vegaEmbed('#longball_september',"{{ url_for('static', filename='jsons/monthly/september2026/longball.json') }}")
   vegaEmbed('#crossing_september',"{{ url_for('static', filename='jsons/monthly/september2026/cross.json') }}")
+  vegaEmbed('#L1_bradford_h_1',"{{ url_for('static', filename='jsons/matches/2627/Bradford/L1_bradford_h_1.json') }}")
+  vegaEmbed('#L1_bradford_h_2',"{{ url_for('static', filename='jsons/matches/2627/Bradford/L1_bradford_h_2.json') }}")
+  vegaEmbed('#L1_bradford_h_3',"{{ url_for('static', filename='jsons/matches/2627/Bradford/L1_bradford_h_3.json') }}")
   /*Sets the number of Posts per "page" and also set the current page to 1*/
-  const POSTS_PER_PAGE = 5;
+  const POSTS_PER_PAGE = 10;
   let current_page = 1;
   /*retrieve the posts using the id and then determine how many pages there are*/
   const POSTS = document.querySelectorAll('#posts-container .post-box');
