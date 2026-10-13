@@ -808,6 +808,39 @@
         </div>
     </div>
 
+    <div class="post-box">
+      <div class="post-header">
+        <h2> Reading v Bradford City </h2>
+        <h2>04/10/2026</h2>
+      </div>
+        <div class="post-text">
+            <h3>Here is my review of Reading FC v Milton Keynes</h3>
+            <h3>Looking at our attacking stats, we can see that we out performed MK.
+                It is nice to see that we have a decent ratio to shots to those on target.
+                I'm surprised by how we didn't get more touches in their box considering how much xG we generated,
+                3.64 v 0.77.</h3>
+      </div>
+        <div id="L1_mkdons_a_1"></div>
+        <div class="post-text">
+            <h3>Looking at the duels, we can see that we dominated them again.
+                We were better both on the ground and in the air, and were able to get more dribbles off then them.
+                This is very impressive as you often see each side dominate either one of the duels.</h3>
+        </div>
+        <div id="L1_mkdons_a_2"></div>
+        <div class="post-text">
+            <h3>Looking at our passing, we can actually see that we were worse off then MK.
+                This doesn't mean we were poor, our passing is down on this season,
+                but we were close to our average on both long balls and crossing.
+                I think this demonstrates how we can play well even with worse passing.</h3>
+        </div>
+        <div id="L1_mkdons_a_3"></div>
+        <div class="post-text">
+            <h3>Overall, it's nice to Reading FC return to our previous dominate form that we saw early in September.
+                Its good that we can also do this without crucial members like Marriot and Earthy,
+                with Reid and Stokes both filling those gaps. Hope to see a similar performance at Wigan.</h3>
+        </div>
+    </div>
+
 
 </div>
 
@@ -884,6 +917,9 @@
   vegaEmbed('#L1_bradford_h_1',"{{ url_for('static', filename='jsons/matches/2627/Bradford/L1_bradford_h_1.json') }}")
   vegaEmbed('#L1_bradford_h_2',"{{ url_for('static', filename='jsons/matches/2627/Bradford/L1_bradford_h_2.json') }}")
   vegaEmbed('#L1_bradford_h_3',"{{ url_for('static', filename='jsons/matches/2627/Bradford/L1_bradford_h_3.json') }}")
+  vegaEmbed('#L1_mkdons_a_1',"{{ url_for('static', filename='jsons/matches/2627/MKDons/L1_mkdons_a_1.json') }}")
+  vegaEmbed('#L1_mkdons_a_2',"{{ url_for('static', filename='jsons/matches/2627/MKDons/L1_mkdons_a_2.json') }}")
+  vegaEmbed('#L1_mkdons_a_3',"{{ url_for('static', filename='jsons/matches/2627/MKDons/L1_mkdons_a_3.json') }}")
   /*Sets the number of Posts per "page" and also set the current page to 1*/
   const POSTS_PER_PAGE = 10;
   let current_page = 1;
