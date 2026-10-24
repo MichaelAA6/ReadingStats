@@ -810,8 +810,8 @@
 
     <div class="post-box">
       <div class="post-header">
-        <h2> Reading v Bradford City </h2>
-        <h2>04/10/2026</h2>
+        <h2> Reading v MK Dons </h2>
+        <h2>11/10/2026</h2>
       </div>
         <div class="post-text">
             <h3>Here is my review of Reading FC v Milton Keynes</h3>
@@ -838,6 +838,69 @@
             <h3>Overall, it's nice to Reading FC return to our previous dominate form that we saw early in September.
                 Its good that we can also do this without crucial members like Marriot and Earthy,
                 with Reid and Stokes both filling those gaps. Hope to see a similar performance at Wigan.</h3>
+        </div>
+    </div>
+
+   <div class="post-box">
+      <div class="post-header">
+        <h2> Reading v Wigan </h2>
+        <h2>18/10/2026</h2>
+      </div>
+        <div class="post-text">
+            <h3>Here is my review of Reading FC v Wigan Athletic</h3>
+            <h3>When we look at our attacking stats, we can see we actually performed quite well up top.
+                We produced a decent shots to shots on target ratio and had a lot of touches in their box.
+                We also produced more xG, 1.99 v 1.16. I am surprised with these stats we didn't score at least one.</h3>
+      </div>
+        <div id="L1_wigan_a_1"></div>
+        <div class="post-text">
+            <h3>Looking at the duels throughout the match, we can see where each team is clearly more comfortable.
+                Wigan like playing it on the ground, so they have a  higher ground duels and dribbles completed,
+                where we dominated in the air, as we like to play long balls up in the air.</h3>
+        </div>
+        <div id="L1_wigan_a_2"></div>
+        <div class="post-text">
+            <h3>We can also see how this affected the passing, with Wigan having a better passing rate,
+                with us having better long balls and crossing. Looking at the stats we didn't play horribly,
+                all of these stats have been impressive for this season, either being equal or above the average.</h3>
+        </div>
+        <div id="L1_wigan_a_3"></div>
+        <div class="post-text">
+            <h3>Overall, I think this is down to individual player performances being poor rather then the tactics.
+                Too many chances wasted chances and mistakes at the back cost us what should have been a routine win.
+                Hopefully we can get back to form with back to back home games</h3>
+        </div>
+    </div>
+
+    <div class="post-box">
+      <div class="post-header">
+        <h2> Reading v Leyton Orient </h2>
+        <h2>22/10/2026</h2>
+      </div>
+        <div class="post-text">
+            <h3>Here is my review of Reading FC v Leyton Orient</h3>
+            <h3>Looking at our attacking stats, its disappointing to see a major setback on the number of chances we created.
+                This has been a complete flip on our normal attacking performances, with only the touches in the box being the saviour.
+                We also had a much worse xG, 1.41 v 2.80.</h3>
+      </div>
+        <div id="L1_leytonorient_h_1"></div>
+        <div class="post-text">
+            <h3>Looking at the duels this match, we can see that we actually performed very well,
+                winning around 58% more duels both on the ground and in the air, with many more dribbles as well.
+                It is good to see that even when doing poor upfront we can still perform well elsewhere.</h3>
+        </div>
+        <div id="L1_leytonorient_h_2"></div>
+        <div class="post-text">
+            <h3>Looking at our passing, we can also see that we did quite well.
+                Our passing and long balls are up on this season where the crossing is slightly down.
+                The long balls is very impressive, with our average around 32%.
+                This alongside the aerial duels won suggested we dominated the air</h3>
+        </div>
+        <div id="L1_leytonorient_h_3"></div>
+        <div class="post-text">
+            <h3>Overall, this was probably Reading FC worse game in attacking and creating chances,
+                but was saved by our performance in the other areas of the pitch.
+                The result was what we needed after Wigan, and hopefully we can get back to our typical performances before Barnsley.</h3>
         </div>
     </div>
 
@@ -920,6 +983,12 @@
   vegaEmbed('#L1_mkdons_a_1',"{{ url_for('static', filename='jsons/matches/2627/MKDons/L1_mkdons_a_1.json') }}")
   vegaEmbed('#L1_mkdons_a_2',"{{ url_for('static', filename='jsons/matches/2627/MKDons/L1_mkdons_a_2.json') }}")
   vegaEmbed('#L1_mkdons_a_3',"{{ url_for('static', filename='jsons/matches/2627/MKDons/L1_mkdons_a_3.json') }}")
+  vegaEmbed('#L1_wigan_a_1',"{{ url_for('static', filename='jsons/matches/2627/Wigan/L1_wigan_a_1.json') }}")
+  vegaEmbed('#L1_wigan_a_2',"{{ url_for('static', filename='jsons/matches/2627/Wigan/L1_wigan_a_2.json') }}")
+  vegaEmbed('#L1_wigan_a_3',"{{ url_for('static', filename='jsons/matches/2627/Wigan/L1_wigan_a_3.json') }}")
+  vegaEmbed('#L1_leytonorient_h_1',"{{ url_for('static', filename='jsons/matches/2627/LeytonOrient/L1_leytonorient_h_1.json') }}")
+  vegaEmbed('#L1_leytonorient_h_2',"{{ url_for('static', filename='jsons/matches/2627/LeytonOrient/L1_leytonorient_h_2.json') }}")
+  vegaEmbed('#L1_leytonorient_h_3',"{{ url_for('static', filename='jsons/matches/2627/LeytonOrient/L1_leytonorient_h_3.json') }}")
   /*Sets the number of Posts per "page" and also set the current page to 1*/
   const POSTS_PER_PAGE = 10;
   let current_page = 1;
